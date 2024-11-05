@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using WebBuilderAPI.Data;
+
 namespace WebBuilderAPI
 {
     public class Program
@@ -7,7 +10,16 @@ namespace WebBuilderAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("Connection") ?? throw new InvalidOperationException("Connection string 'Connection' not found.");
+
             // Add services to the container.
+            #region Database Context
+            builder.Services.AddDbContext<DbContextApp>(options =>
+                options.UseMySQL(connectionString, builder =>
+                {
+                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                }));
+            #endregion
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
