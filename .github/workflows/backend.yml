@@ -8,8 +8,8 @@ on:
 
 env:
   PROJECT_LOCATION:  Backend/WebBuilderAPI/WebBuilderAPI/WebBuilderAPI.csproj
-  ELASTIC_BEANSTALK_NAME: dotnet-linux
-  ELASTIC_BEANSTALK_ENV_NAME: Dotnet-linux-env
+  ELASTIC_BEANSTALK_NAME: webbuilder-app
+  ELASTIC_BEANSTALK_ENV_NAME: Webbuilder-app-env
 
 jobs:
   build:
