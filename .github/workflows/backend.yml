@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  PROJECT_LOCATION:  Backend/WebBuilderAPI/WebBuilderAPI.csproj
+  PROJECT_LOCATION:  Backend/WebBuilderAPI/WebBuilderAPI/WebBuilderAPI.csproj
   ELASTIC_BEANSTALK_NAME: dotnet-linux
   ELASTIC_BEANSTALK_ENV_NAME: Dotnet-linux-env
 
