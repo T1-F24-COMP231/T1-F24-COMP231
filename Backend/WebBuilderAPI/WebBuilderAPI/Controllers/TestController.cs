@@ -18,6 +18,7 @@ namespace WebBuilderAPI.Controllers
         {
             try
             {
+
                 if(_context.Database.CanConnect())
                     return Ok(true);
                 else
