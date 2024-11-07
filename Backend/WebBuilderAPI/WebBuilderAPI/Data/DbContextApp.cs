@@ -12,7 +12,11 @@ namespace WebBuilderAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Account>()
+                .HasIndex(a => a.Email)
+                .IsUnique();
         }
 
+        public DbSet<Account> Accounts { get; set; }
     }
 }
