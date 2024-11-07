@@ -37,5 +37,20 @@ namespace WebBuilderAPI.Controllers
                 return BadRequest($"{ ex.Message} - {ex.InnerException?.Message}");
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAccount([FromRoute] int id, [FromBody] AccountRequestModel account)
+        {
+            try
+            {
+                await _accountRepository.UpdateAccount(id, account);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
     }
 }
