@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using WebBuilderAPI.Data;
+using WebBuilderAPI.Repositories;
 
 namespace WebBuilderAPI
 {
@@ -25,6 +26,8 @@ namespace WebBuilderAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<AccountRepository>();
 
             var app = builder.Build();
 
