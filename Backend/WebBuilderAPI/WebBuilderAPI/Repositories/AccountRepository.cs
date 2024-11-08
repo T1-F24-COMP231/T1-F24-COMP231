@@ -33,5 +33,13 @@ namespace WebBuilderAPI.Repositories
             oldAccount.LastName = account.LastName;
             await _context.SaveChangesAsync();
         }
+
+
+        public async Task DeleteAccount(int id)
+        {
+            var oldAccount = await GetAccount(id);
+            _context.Remove(oldAccount);
+            await _context.SaveChangesAsync();
+        }
     }
 }
