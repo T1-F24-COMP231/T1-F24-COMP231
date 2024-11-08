@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebBuilderAPI.Data;
 using WebBuilderAPI.Repositories;
 using WebBuilderAPI.RequestModels;
@@ -44,6 +43,21 @@ namespace WebBuilderAPI.Controllers
             try
             {
                 await _accountRepository.UpdateAccount(id, account);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAccount([FromRoute] int id)
+        {
+            try
+            {
+                await _accountRepository.DeleteAccount(id);
 
                 return NoContent();
             }
