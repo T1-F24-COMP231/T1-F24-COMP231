@@ -11,8 +11,8 @@ using WebBuilderAPI.Data;
 namespace WebBuilderAPI.Migrations
 {
     [DbContext(typeof(DbContextApp))]
-    [Migration("20241110000536_Layout_Scheme")]
-    partial class Layout_Scheme
+    [Migration("20241110011715_Layout_Account_Scheme")]
+    partial class Layout_Account_Scheme
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
