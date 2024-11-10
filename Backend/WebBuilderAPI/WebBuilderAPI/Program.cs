@@ -28,6 +28,8 @@ namespace WebBuilderAPI
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<AccountRepository>();
+            // Register LayoutRepository with DI container
+            builder.Services.AddScoped<LayoutRepository>();
 
             var app = builder.Build();
 
