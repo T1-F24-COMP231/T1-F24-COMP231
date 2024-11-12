@@ -10,6 +10,9 @@
         public string JavaScriptContent { get; set; }  // JavaScript content (if any)
         public DateTime CreatedAt { get; set; }  // Timestamp for when the layout was created
         public DateTime UpdatedAt { get; set; }  // Timestamp for the last update
+        public bool IsPublished { get; set; }   // Indicates if the layout is published
+        public DateTime? PublishedAt { get; set; } // Timestamp for when the layout was published
+        public string? DeploymentUrl { get; set; }
     }
 }
 

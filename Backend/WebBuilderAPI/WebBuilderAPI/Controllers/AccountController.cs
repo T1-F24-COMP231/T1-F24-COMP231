@@ -66,5 +66,67 @@ namespace WebBuilderAPI.Controllers
                 return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
             }
         }
+
+        //To get Profile detail
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProfileDetails(int id)
+        {
+            try
+            {
+                var account = await _accountRepository.GetAccountById(id);
+                if (account == null)
+                {
+                    return NotFound("Account not found");
+                }
+
+                return Ok(new
+                {
+                    account.Id,
+                    account.FirstName,
+                    account.LastName,
+                    account.Email
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
+
+        //Update Profile detail
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateProfile(int id, [FromBody] UpdateProfileRequestModel updateModel)
+        {
+            try
+            {
+                var account = await _accountRepository.GetAccountById(id);
+                if (account == null)
+                {
+                    return NotFound("Account not found");
+                }
+
+                // Validate old password
+                if (updateModel.OldPassword != account.Password)
+                {
+                    return BadRequest("Incorrect old password");
+                }
+
+                // Update fields if provided
+                account.FirstName = updateModel.FirstName ?? account.FirstName;
+                account.LastName = updateModel.LastName ?? account.LastName;
+
+                if (!string.IsNullOrWhiteSpace(updateModel.NewPassword))
+                {
+                    account.Password = updateModel.NewPassword;
+                }
+
+                await _accountRepository.UpdateAccount(account);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
     }
 }

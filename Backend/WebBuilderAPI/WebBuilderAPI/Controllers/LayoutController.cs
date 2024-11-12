@@ -32,7 +32,10 @@ namespace WebBuilderAPI.Controllers
                     CssContent = layoutRequest.CssContent,
                     JavaScriptContent = layoutRequest.JavaScriptContent,
                     CreatedAt = DateTime.UtcNow,
-                    UpdatedAt = DateTime.UtcNow
+                    UpdatedAt = DateTime.UtcNow,
+                    IsPublished = false,
+                    PublishedAt = null,
+                    DeploymentUrl = ""
                 };
 
                 // Call the repository to save the new layout
@@ -65,7 +68,22 @@ namespace WebBuilderAPI.Controllers
 
                 // Call the repository to update the layout
                 await _layoutRepository.UpdateLayout(id, layout);
-                return NoContent(); // Successfully updated
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
+
+        // PUT: api/Layout/{id}/Publish
+        [HttpPut("{id}/Publish")]
+        public async Task<IActionResult> PublishLayout([FromRoute] int id, [FromBody] PublishRequestModel request)
+        {
+            try
+            {
+                await _layoutRepository.PublishLayout(id, request.DeploymentUrl);
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -110,17 +128,36 @@ namespace WebBuilderAPI.Controllers
             }
         }
 
-        // GET: api/Layout/User/{userId}
-        [HttpGet("User/{userId}")]
-        public async Task<IActionResult> GetLayoutsByUserId([FromRoute] int userId)
+        // GET: api/Layout/User/{userId}/Editable
+        [HttpGet("User/{userId}/Editable")]
+        public async Task<IActionResult> GetEditableLayoutsByUserId([FromRoute] int userId)
         {
             try
             {
-                // Retrieve the layouts for a specific user
-                var layouts = await _layoutRepository.GetLayoutsByUserId(userId);
+                var layouts = await _layoutRepository.GetLayoutsByUserId(userId, false);
                 if (layouts == null || layouts.Count == 0)
                 {
-                    return NotFound("No layouts found for this user.");
+                    return NotFound("No editable layouts found for this user.");
+                }
+
+                return Ok(layouts);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
+
+        // GET: api/Layout/User/{userId}/Published
+        [HttpGet("User/{userId}/Published")]
+        public async Task<IActionResult> GetPublishedLayoutsByUserId([FromRoute] int userId)
+        {
+            try
+            {
+                var layouts = await _layoutRepository.GetLayoutsByUserId(userId, true);
+                if (layouts == null || layouts.Count == 0)
+                {
+                    return NotFound("No published layouts found for this user.");
                 }
 
                 return Ok(layouts);

@@ -17,6 +17,9 @@ namespace WebBuilderAPI.Repositories
         {
             layout.CreatedAt = DateTime.UtcNow;
             layout.UpdatedAt = DateTime.UtcNow;
+            layout.IsPublished = false;
+            layout.PublishedAt = null;
+            layout.DeploymentUrl = null;
 
             await _dbContext.Layouts.AddAsync(layout);
             await _dbContext.SaveChangesAsync();
@@ -33,6 +36,20 @@ namespace WebBuilderAPI.Repositories
             existingLayout.CssContent = layout.CssContent;
             existingLayout.JavaScriptContent = layout.JavaScriptContent;
             existingLayout.UpdatedAt = DateTime.UtcNow;
+
+            await _dbContext.SaveChangesAsync();
+        }
+
+        // Publish a layout
+        public async Task PublishLayout(int id, string deploymentUrl)
+        {
+            var layout = await _dbContext.Layouts.FindAsync(id);
+            if (layout == null) throw new Exception("Layout not found");
+
+            layout.IsPublished = true;
+            layout.PublishedAt = DateTime.UtcNow;
+            layout.UpdatedAt = DateTime.UtcNow;
+            layout.DeploymentUrl = deploymentUrl;
 
             await _dbContext.SaveChangesAsync();
         }
@@ -58,5 +75,13 @@ namespace WebBuilderAPI.Repositories
         {
             return await _dbContext.Layouts.Where(l => l.UserId == userId).ToListAsync();
         }
+        // Get layouts for a specific user with a filter for published status
+        public async Task<List<Layout>> GetLayoutsByUserId(int userId, bool isPublished)
+        {
+            return await _dbContext.Layouts
+                .Where(l => l.UserId == userId && l.IsPublished == isPublished)
+                .ToListAsync();
+        }
+
     }
 }
