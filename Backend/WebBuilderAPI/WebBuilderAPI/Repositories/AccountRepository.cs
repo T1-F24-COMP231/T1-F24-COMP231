@@ -41,5 +41,17 @@ namespace WebBuilderAPI.Repositories
             _context.Remove(oldAccount);
             await _context.SaveChangesAsync();
         }
+
+        //Profile updation
+        public async Task<Account> GetAccountById(int id)
+        {
+            return await _context.Accounts.FindAsync(id);
+        }
+
+        public async Task UpdateAccount(Account account)
+        {
+            _context.Accounts.Update(account);
+            await _context.SaveChangesAsync();
+        }
     }
 }

@@ -17,4 +17,8 @@ namespace WebBuilderAPI.RequestModels
 
         public string JavaScriptContent { get; set; }
     }
+    public class PublishRequestModel
+    {
+        public string DeploymentUrl { get; set; } // URL to be used when publishing
+    }
 }
