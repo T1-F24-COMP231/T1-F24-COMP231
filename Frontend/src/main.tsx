@@ -5,7 +5,7 @@ import '@tabler/core/dist/css/tabler.min.css';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'grapesjs/dist/css/grapes.min.css';
-import './index.css';
+import './styles/index.css';
 
 import App from './App.tsx';
 
