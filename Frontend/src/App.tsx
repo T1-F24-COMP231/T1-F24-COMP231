@@ -1,35 +1,43 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './styles/App.css';
-import './styles/tail.css';
+// App.tsx (React component)
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import React from 'react';
+import UserListPage from './components/admin/UserListPage';
+import SystemMonitorPage from './components/admin/SystemMonitorPage';
+import ProfilePage from './components/ProfilePage';
+import WebsiteStatusPage from './components/WebsiteStatusPage';
+import './styles/App.css'; // Include your CSS file here
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <div className=''>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <Router>
+      <div className="app-container">
+        {/* Navigation Bar */}
+        <nav className="navigation-bar">
+          <h1 className="app-title">Website Builder Dashboard</h1>
+          <ul className="nav-links">
+            <li><Link to="/users">User List</Link></li>
+            <li><Link to="/system-monitor">System Monitor</Link></li>
+            <li><Link to="/profile">Profile Management</Link></li>
+            <li><Link to="/website-status">Website Status</Link></li>
+          </ul>
+        </nav>
+
+        {/* Main Content */}
+        <main className="main-content">
+          <Routes>
+            <Route path="/users" element={<UserListPage />} />
+            <Route path="/system-monitor" element={<SystemMonitorPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/website-status" element={<WebsiteStatusPage />} />
+          </Routes>
+        </main>
+
+        {/* Footer */}
+        <footer className="footer">
+          <p>&copy; 2024 Website Builder Application. All rights reserved.</p>
+        </footer>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </Router>
   );
 }
 
