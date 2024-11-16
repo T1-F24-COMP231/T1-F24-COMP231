@@ -67,6 +67,32 @@ namespace WebBuilderAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var users = await _accountRepository.GetAllAccounts();
+                if (users == null || !users.Any())
+                {
+                    return NotFound("No users found");
+                }
+
+                var userList = users.Select(user => new
+                {
+                    user.Id,
+                    user.FirstName,
+                    user.LastName,
+                    user.Email
+                });
+
+                return Ok(userList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
         //To get Profile detail
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProfileDetails(int id)
