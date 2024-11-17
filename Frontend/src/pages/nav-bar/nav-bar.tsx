@@ -3,9 +3,8 @@ import React from 'react';
 const NavBar: React.FC = () => {
 
   return (
-    <div className="mb-3">
       <header className="navbar navbar-expand-md d-print-none">
-        <div className="container-xl">
+        <div className="container-fluid">
           <button
             className="navbar-toggler"
             type="button"
@@ -43,53 +42,17 @@ const NavBar: React.FC = () => {
               <ul className="navbar-nav">
                 <li className="nav-item active">
                   <a className="nav-link" href="./#">
-                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      {/* <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="icon"
-                      >
-                        <path
-                          stroke="none"
-                          d="M0 0h24v24H0z"
-                          fill="none"
-                        ></path>
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
-                      </svg> */}
-                    </span>
+                    {/* <span className="nav-link-icon d-md-none d-lg-inline-block">
+                      
+                    </span> */}
                     <span className="nav-link-title">First</span>
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="./#">
-                    <span className="nav-link-icon d-md-none d-lg-inline-block">
-                      {/* <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="icon"
-                      >
-                        <path
-                          stroke="none"
-                          d="M0 0h24v24H0z"
-                          fill="none"
-                        ></path>
-                        <path d="M12 17.75l-6.172 3.245l1.179 -6.873l-5 -4.867l6.9 -1l3.086 -6.253l3.086 6.253l6.9 1l-5 4.867l1.179 6.873z"></path>
-                      </svg> */}
-                    </span>
+                    {/* <span className="nav-link-icon d-md-none d-lg-inline-block">
+                    
+                    </span> */}
                     <span className="nav-link-title">Second</span>
                   </a>
                 </li>
@@ -98,8 +61,6 @@ const NavBar: React.FC = () => {
           </div>
         </div>
       </header>
-    </div>
-   
   );
 };
 
