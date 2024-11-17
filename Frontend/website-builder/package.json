@@ -1,0 +1,30 @@
+{
+  "name": "grapesjs-preset-webpage",
+  "version": "1.0.21",
+  "description": "GrapesJS Plugin Webpage Preset",
+  "main": "dist/index.js",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "grapesjs-cli build",
+    "start": "grapesjs-cli serve",
+    "prettier": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GrapesJS/preset-webpage.git"
+  },
+  "keywords": [
+    "grapesjs",
+    "plugin",
+    "webpage",
+    "preset",
+    "wysiwyg"
+  ],
+  "devDependencies": {
+    "grapesjs": "^0.21.2",
+    "grapesjs-cli": "^4.1.1",
+    "prettier": "^3.3.3"
+  }
+}
