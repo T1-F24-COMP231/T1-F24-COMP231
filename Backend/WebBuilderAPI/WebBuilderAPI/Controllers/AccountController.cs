@@ -25,7 +25,8 @@ namespace WebBuilderAPI.Controllers
                     Email = account.Email,
                     Password = account.Password,
                     FirstName = account.FirstName,
-                    LastName = account.LastName
+                    LastName = account.LastName,
+                    IsAdmin = account.IsAdmin
                 };
 
                 await _accountRepository.NewAccount(newAccount);
@@ -78,13 +79,15 @@ namespace WebBuilderAPI.Controllers
                     return NotFound("No users found");
                 }
 
-                var userList = users.Select(user => new
-                {
-                    user.Id,
-                    user.FirstName,
-                    user.LastName,
-                    user.Email
-                });
+                var userList = users
+                    .Where(user => !user.IsAdmin) // Filter out users with IsAdmin = true
+                    .Select(user => new
+                    {
+                        user.Id,
+                        user.FirstName,
+                        user.LastName,
+                        user.Email
+                    });
 
                 return Ok(userList);
             }
@@ -110,6 +113,7 @@ namespace WebBuilderAPI.Controllers
                     account.Id,
                     account.FirstName,
                     account.LastName,
+                    account.Password,
                     account.Email
                 });
             }

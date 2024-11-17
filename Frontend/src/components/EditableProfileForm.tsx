@@ -4,7 +4,7 @@ interface Profile {
   firstName: string;
   lastName: string;
   email: string;
-  oldPassword: string;
+  password: string;
   newPassword: string;
   confirmPassword: string;
 }
@@ -12,7 +12,7 @@ interface Profile {
 interface EditableProfileFormProps {
   profile: Profile;
   onSave: (updatedProfile: Profile) => void;
-  clearOldPassword: boolean; // Prop to clear old password field when in edit mode
+  clearOldPassword: boolean;
 }
 
 const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
@@ -23,15 +23,14 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
   const [formData, setFormData] = useState<Profile>(profile);
 
   useEffect(() => {
-    // Reset the old password field when toggling to edit mode
+    // Ensure the form does not pre-fill the old password field
     if (clearOldPassword) {
       setFormData((prevState) => ({
         ...prevState,
-        oldPassword: "", // Clear the old password in the form
+        password: "", // Clear old password in the form to prevent it from being pre-filled
       }));
     } else {
-      // Keep old password as is when not in edit mode
-      setFormData(profile);
+      setFormData(profile); // Reset to original profile data
     }
   }, [profile, clearOldPassword]);
 
@@ -81,16 +80,17 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           name="email"
           value={formData.email}
           onChange={handleChange}
-          disabled // Make email field read-only
         />
       </div>
+
+      {/* Password fields */}
       <div className="form-row">
-        <label htmlFor="oldPassword">Old Password:</label>
+        <label htmlFor="password">Old Password:</label>
         <input
           type="password"
-          id="oldPassword"
-          name="oldPassword"
-          value={formData.oldPassword}
+          id="password"
+          name="password"
+          value={formData.password || ""}  // Ensure the field is empty when the form loads
           onChange={handleChange}
         />
       </div>
@@ -100,7 +100,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="newPassword"
           name="newPassword"
-          value={formData.newPassword}
+          value={formData.newPassword || ""}  // Default value from the profile
           onChange={handleChange}
         />
       </div>

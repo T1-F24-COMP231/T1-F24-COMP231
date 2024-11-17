@@ -13,17 +13,18 @@ body {
   gap: 20px; /* Adds space between the two sections */
   padding: 20px;
   flex-wrap: wrap;
+  align-items: center; 
 }
 
 /* Profile Page Section (Left side) */
 .profile-page-container {
+  padding: 20px;
+  background-color: #f9f9f9;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px;
-  max-width: 48%; /* Adjust width for side-by-side layout */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  height: 100vh; /* Make the container fill the full viewport height */
 }
-
 .profile-page-container h1 {
   font-size: 2.5em;
   color: #333;
