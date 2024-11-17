@@ -45,8 +45,10 @@ namespace WebBuilderAPI.Repositories
         {
             var layout = await _dbContext.Layouts.FindAsync(id);
             if (layout == null) throw new Exception("Layout not found");
-
-            layout.IsPublished = true;
+            if(deploymentUrl != null)
+                layout.IsPublished = true;
+            else
+                layout.IsPublished = false;
             layout.PublishedAt = DateTime.UtcNow;
             layout.UpdatedAt = DateTime.UtcNow;
             layout.DeploymentUrl = deploymentUrl;

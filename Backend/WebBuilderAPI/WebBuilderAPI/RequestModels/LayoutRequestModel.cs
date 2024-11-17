@@ -19,6 +19,6 @@ namespace WebBuilderAPI.RequestModels
     }
     public class PublishRequestModel
     {
-        public string DeploymentUrl { get; set; } // URL to be used when publishing
+        public string? DeploymentUrl { get; set; } // URL to be used when publishing
     }
 }
