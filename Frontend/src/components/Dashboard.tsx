@@ -10,16 +10,13 @@ const Dashboard: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <div className="container mt-4 text-center text-purple">
-        <h1>Welcome to the Dashboard</h1>
-      </div>
       <button
         onClick={handleCreateWebsite}
         style={{
           position: 'fixed',
-          bottom: '20px',
+          bottom: '30px',
           right: '20px',
-          backgroundColor: '#ae3ec9',
+          backgroundColor: '#443a3c',
           color: 'white',
           border: 'none',
           borderRadius: '50%',
@@ -34,7 +31,7 @@ const Dashboard: React.FC = () => {
         }}
         title="Create New Website"
       >
-        +
+        <span className="text-pink">+</span>
       </button>
     </div>
   );

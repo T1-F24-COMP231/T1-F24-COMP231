@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/Dashboard';
 import WebsiteBuilder from './components/WebsiteBuilder';
 import UserListPage from './components/admin/UserListPage';
 import SystemMonitorPage from './components/admin/SystemMonitorPage';
@@ -8,6 +8,7 @@ import ProfilePage from './components/ProfilePage';
 import WebsiteStatusPage from './components/WebsiteStatusPage';
 import './styles/App.css';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/website-status" element={<WebsiteStatusPage />} />
       </Routes>
+      <Footer></Footer>
     </>
   );
 };

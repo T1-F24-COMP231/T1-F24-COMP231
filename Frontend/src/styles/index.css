@@ -9,7 +9,20 @@
         left: 0;
         right: 0;
         bottom: -.25rem;
-        border: 0 var(--tblr-border-style) #ae3ec9;
+        border: 0 var(--tblr-border-style) #443a3c;
         border-bottom-width: 2px;
     }
 }
+
+.text-pink{
+    color: #ea4c89 !important;
+}
+
+.bg-custom{
+    background-color: #443a3c !important;
+}
+
+.bg-none{
+    background-color: unset !important;
+}
+
