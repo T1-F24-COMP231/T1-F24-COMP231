@@ -5,7 +5,7 @@ const NavBar: React.FC = () => {
   const location = useLocation(); 
 
   return (
-    <header className="navbar navbar-expand-md d-print-none">
+    <header className="navbar navbar-expand-md d-print-none bg-prpl-lt">
       <div className="container-fluid">
         <button
           className="navbar-toggler"
@@ -20,7 +20,7 @@ const NavBar: React.FC = () => {
         </button>
 
         <div className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-          <Link to="/" className="text-decoration-none text-reset">
+          <Link to="/" className="text-decoration-none text-reset text-purple">
             <span>Custom Website Builder</span>
           </Link>
         </div>
@@ -33,7 +33,7 @@ const NavBar: React.FC = () => {
                 backgroundImage: `url('./static/avatars/003m.jpg')`,
               }}
             ></span>
-            <div className="d-none d-xl-block ps-2">
+            <div className="d-none d-xl-block ps-2 text-purple">
               <div>User</div>
               <div className="mt-1 small text-secondary">Admin</div>
             </div>
@@ -48,7 +48,7 @@ const NavBar: React.FC = () => {
                   location.pathname === '/users' ? 'active' : ''
                 }`}
               >
-                <Link className="nav-link" to="/users">
+                <Link className="nav-link text-purple" to="/users">
                   <span className="nav-link-title">User List</span>
                 </Link>
               </li>
@@ -57,7 +57,7 @@ const NavBar: React.FC = () => {
                   location.pathname === '/system-monitor' ? 'active' : ''
                 }`}
               >
-                <Link className="nav-link" to="/system-monitor">
+                <Link className="nav-link text-purple" to="/system-monitor">
                   <span className="nav-link-title">System Monitor</span>
                 </Link>
               </li>
@@ -66,7 +66,7 @@ const NavBar: React.FC = () => {
                   location.pathname === '/profile' ? 'active' : ''
                 }`}
               >
-                <Link className="nav-link" to="/profile">
+                <Link className="nav-link text-purple" to="/profile">
                   <span className="nav-link-title">Profile Management</span>
                 </Link>
               </li>
@@ -75,7 +75,7 @@ const NavBar: React.FC = () => {
                   location.pathname === '/website-status' ? 'active' : ''
                 }`}
               >
-                <Link className="nav-link" to="/website-status">
+                <Link className="nav-link text-purple" to="/website-status">
                   <span className="nav-link-title">Website Status</span>
                 </Link>
               </li>

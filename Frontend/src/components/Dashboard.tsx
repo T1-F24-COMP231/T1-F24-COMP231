@@ -10,7 +10,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <div className="container mt-4 text-center">
+      <div className="container mt-4 text-center text-purple">
         <h1>Welcome to the Dashboard</h1>
       </div>
       <button
@@ -19,7 +19,7 @@ const Dashboard: React.FC = () => {
           position: 'fixed',
           bottom: '20px',
           right: '20px',
-          backgroundColor: '#066fd1',
+          backgroundColor: '#ae3ec9',
           color: 'white',
           border: 'none',
           borderRadius: '50%',

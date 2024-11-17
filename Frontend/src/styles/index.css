@@ -1,0 +1,15 @@
+.bg-prpl-lt{
+    background-color: #f7ecfa;
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-md .nav-item.active:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -.25rem;
+        border: 0 var(--tblr-border-style) #ae3ec9;
+        border-bottom-width: 2px;
+    }
+}
