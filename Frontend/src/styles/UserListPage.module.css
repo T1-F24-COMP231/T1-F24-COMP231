@@ -1,0 +1,39 @@
+.userListContainer {
+  padding: 20px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  height: 100vh; /* Make the container fill the full viewport height */
+}
+
+.userTable {
+  width: 80%; /* Set table width */
+  border-collapse: collapse; /* Collapse borders to avoid double borders */
+  margin-top: 20px; /* Add space between label and table */
+  background-color: #ffffff;
+}
+
+.userTable th, .userTable td {
+  border: 1px solid #ddd; /* Add border around each cell */
+  padding: 12px 15px; /* Add padding inside cells */
+  text-align: left;
+}
+
+.userTable th {
+  background-color: #4CAF50; /* Add background color for header */
+  color: white;
+}
+
+.userTable tr:nth-child(even) {
+  background-color: #f2f2f2; /* Alternate row color */
+}
+
+.userTable tr:hover {
+  background-color: #ddd; /* Highlight row on hover */
+}
+
+h1 {
+  text-align: center; /* Center the User List heading */
+  margin-bottom: 20px; /* Add space between heading and table */
+}

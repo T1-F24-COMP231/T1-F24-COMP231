@@ -23,6 +23,15 @@ namespace WebBuilderAPI.Repositories
             _context.Accounts.Add(newAccount);
             await _context.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Account>> GetAllAccounts()
+        {
+            var accounts = await _context.Accounts.ToListAsync();
+            if (accounts == null || !accounts.Any())
+            {
+                throw new Exception("No accounts found.");
+            }
+            return accounts;
+        }
 
         public async Task UpdateAccount(int id, AccountRequestModel account)
         {

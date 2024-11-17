@@ -128,6 +128,26 @@ namespace WebBuilderAPI.Controllers
             }
         }
 
+        // GET: api/Layout/User/{userId}
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetLayoutsByUserId([FromRoute] int userId)
+        {
+            try
+            {
+                var layouts = await _layoutRepository.GetLayoutsByUserId(userId);
+                if (layouts == null || layouts.Count == 0)
+                {
+                    return NotFound("No layouts found for this user.");
+                }
+
+                return Ok(layouts);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"{ex.Message} - {ex.InnerException?.Message}");
+            }
+        }
+
         // GET: api/Layout/User/{userId}/Editable
         [HttpGet("User/{userId}/Editable")]
         public async Task<IActionResult> GetEditableLayoutsByUserId([FromRoute] int userId)

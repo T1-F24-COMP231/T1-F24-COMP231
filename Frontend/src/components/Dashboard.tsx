@@ -1,8 +1,8 @@
 import React from 'react';
-import NavBar from '../nav-bar/nav-bar';
+import NavBar from './NavBar';
 import { useNavigate } from 'react-router-dom';
 
-const DashboardPage: React.FC = () => {
+const Dashboard: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCreateWebsite = () => {
@@ -11,7 +11,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
- <NavBar></NavBar>
+      <NavBar></NavBar>
       <div style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
         <nav className="navbar navbar-dark bg-dark">
           <div className="container-fluid">
@@ -52,4 +52,4 @@ const DashboardPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+export default Dashboard;
