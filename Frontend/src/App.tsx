@@ -7,9 +7,12 @@ import SystemMonitorPage from './components/admin/SystemMonitorPage';
 import ProfilePage from './components/ProfilePage';
 import WebsiteStatusPage from './components/WebsiteStatusPage';
 import './styles/App.css';
+import NavBar from './components/NavBar';
 
 const App: React.FC = () => {
   return (
+    <>
+    <NavBar></NavBar>
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/website-builder" element={<WebsiteBuilder />} />
@@ -18,6 +21,7 @@ const App: React.FC = () => {
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/website-status" element={<WebsiteStatusPage />} />
     </Routes>
+    </>
   );
 };
 

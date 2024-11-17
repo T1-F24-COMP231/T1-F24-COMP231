@@ -1,5 +1,4 @@
 import React from 'react';
-import NavBar from './NavBar';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
@@ -11,20 +10,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <NavBar></NavBar>
-      <div style={{ position: 'sticky', top: 0, zIndex: 1000 }}>
-        <nav className="navbar navbar-dark bg-dark">
-          <div className="container-fluid">
-            <span className="navbar-brand mb-0 h1">My Dashboard</span>
-          </div>
-        </nav>
-      </div>
-
       <div className="container mt-4 text-center">
         <h1>Welcome to the Dashboard</h1>
-        <p>Here’s where your main content goes!</p>
       </div>
-
       <button
         onClick={handleCreateWebsite}
         style={{
