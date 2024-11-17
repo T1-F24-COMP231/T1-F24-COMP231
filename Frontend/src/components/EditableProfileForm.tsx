@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 interface Profile {
   firstName: string;
@@ -27,7 +27,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
     if (clearOldPassword) {
       setFormData((prevState) => ({
         ...prevState,
-        password: "", // Clear old password in the form to prevent it from being pre-filled
+        password: '', // Clear old password in the form to prevent it from being pre-filled
       }));
     } else {
       setFormData(profile); // Reset to original profile data
@@ -90,7 +90,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="password"
           name="password"
-          value={formData.password || ""}  // Ensure the field is empty when the form loads
+          value={formData.password || ''} // Ensure the field is empty when the form loads
           onChange={handleChange}
         />
       </div>
@@ -100,7 +100,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="newPassword"
           name="newPassword"
-          value={formData.newPassword || ""}  // Default value from the profile
+          value={formData.newPassword || ''} // Default value from the profile
           onChange={handleChange}
         />
       </div>

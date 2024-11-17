@@ -5,19 +5,23 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start-editor": "npm start --prefix website-builder",
+    "start:all": "concurrently \"npm run dev\" \"npm run start-editor\"",
+    "prettier:frontend": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier:editor": "prettier --write \"website-builder/src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier:all": "npm run prettier:frontend && npm run prettier:editor",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "format": "prettier --write ."
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tabler/core": "^1.0.0-beta21",
+    "@types/react-router-dom": "^5.3.3",
     "ag-grid-community": "^32.3.2",
-    "ag-grid-react": "^32.3.2",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
-    "grapesjs": "^0.22.3",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0"
   },
@@ -27,6 +31,7 @@
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
     "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
     "eslint": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",

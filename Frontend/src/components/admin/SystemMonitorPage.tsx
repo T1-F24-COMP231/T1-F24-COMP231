@@ -58,30 +58,56 @@ const SystemMonitorPage: React.FC = () => {
         <div className={styles.statsContainer}>
           <div className={styles.statBox}>
             <h2>Hardware Information</h2>
-            <p><strong>Manufacturer:</strong> {stats.hardwareInfo.manufacturer}</p>
-            <p><strong>Model:</strong> {stats.hardwareInfo.model}</p>
+            <p>
+              <strong>Manufacturer:</strong> {stats.hardwareInfo.manufacturer}
+            </p>
+            <p>
+              <strong>Model:</strong> {stats.hardwareInfo.model}
+            </p>
           </div>
           <div className={styles.statBox}>
             <h2>CPU Information</h2>
-            <p><strong>Manufacturer:</strong> {stats.cpuInfo.manufacturer}</p>
-            <p><strong>Brand:</strong> {stats.cpuInfo.brand}</p>
-            <p><strong>Speed:</strong> {stats.cpuInfo.speed}</p>
-            <p><strong>Cores:</strong> {stats.cpuInfo.cores}</p>
-            <p><strong>Physical Cores:</strong> {stats.cpuInfo.physicalCores}</p>
-            <p><strong>Usage:</strong> {(stats.cpuInfo.usage * 100).toFixed(2)}%</p>
+            <p>
+              <strong>Manufacturer:</strong> {stats.cpuInfo.manufacturer}
+            </p>
+            <p>
+              <strong>Brand:</strong> {stats.cpuInfo.brand}
+            </p>
+            <p>
+              <strong>Speed:</strong> {stats.cpuInfo.speed}
+            </p>
+            <p>
+              <strong>Cores:</strong> {stats.cpuInfo.cores}
+            </p>
+            <p>
+              <strong>Physical Cores:</strong> {stats.cpuInfo.physicalCores}
+            </p>
+            <p>
+              <strong>Usage:</strong> {(stats.cpuInfo.usage * 100).toFixed(2)}%
+            </p>
           </div>
           <div className={styles.statBox}>
             <h2>Main Memory Usage</h2>
-            <p><strong>Usage:</strong> {stats.memoryUsage} MB</p>
+            <p>
+              <strong>Usage:</strong> {stats.memoryUsage} MB
+            </p>
           </div>
           <div className={styles.statBox}>
             <h2>Disk Usage</h2>
             <h3>Drive C:</h3>
-            <p><strong>Used:</strong> {stats.diskUsage.driveC.used}</p>
-            <p><strong>Total:</strong> {stats.diskUsage.driveC.total}</p>
+            <p>
+              <strong>Used:</strong> {stats.diskUsage.driveC.used}
+            </p>
+            <p>
+              <strong>Total:</strong> {stats.diskUsage.driveC.total}
+            </p>
             <h3>Drive D:</h3>
-            <p><strong>Used:</strong> {stats.diskUsage.driveD.used}</p>
-            <p><strong>Total:</strong> {stats.diskUsage.driveD.total}</p>
+            <p>
+              <strong>Used:</strong> {stats.diskUsage.driveD.used}
+            </p>
+            <p>
+              <strong>Total:</strong> {stats.diskUsage.driveD.total}
+            </p>
           </div>
         </div>
       ) : (
