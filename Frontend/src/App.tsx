@@ -12,15 +12,15 @@ import NavBar from './components/NavBar';
 const App: React.FC = () => {
   return (
     <>
-    <NavBar></NavBar>
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/website-builder" element={<WebsiteBuilder />} />
-      <Route path="/users" element={<UserListPage />} />
-      <Route path="/system-monitor" element={<SystemMonitorPage />} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/website-status" element={<WebsiteStatusPage />} />
-    </Routes>
+      <NavBar></NavBar>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/website-builder" element={<WebsiteBuilder />} />
+        <Route path="/users" element={<UserListPage />} />
+        <Route path="/system-monitor" element={<SystemMonitorPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/website-status" element={<WebsiteStatusPage />} />
+      </Routes>
     </>
   );
 };

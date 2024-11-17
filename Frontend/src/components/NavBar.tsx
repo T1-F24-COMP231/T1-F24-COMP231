@@ -20,9 +20,9 @@ const NavBar: React.FC = () => {
         </button>
 
         <div className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-        <Link to="/" className="text-decoration-none text-reset">
-    <span>Custom Website Builder</span>
-  </Link>
+          <Link to="/" className="text-decoration-none text-reset">
+            <span>Custom Website Builder</span>
+          </Link>
         </div>
 
         <div className="navbar-nav flex-row order-md-last">
