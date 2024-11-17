@@ -14,12 +14,16 @@
     }
 }
 
-.text-pink{
+.color-primary{
     color: #ea4c89 !important;
 }
 
-.bg-custom{
+.bg-primary{
     background-color: #443a3c !important;
+}
+
+.color-secondary{
+    color:#443a3c !important;
 }
 
 .bg-none{

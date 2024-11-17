@@ -1,11 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [websiteName, setWebsiteName] = useState('');
+  const [error, setError] = useState('');
 
   const handleCreateWebsite = () => {
-    navigate('/website-builder');
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setWebsiteName('');
+    setError('');
+  };
+
+  const validateWebsiteName = (name: string): boolean => {
+    if (!name.trim()) {
+      setError('Website name is required.');
+      return false;
+    }
+    if (name.length > 20) {
+      setError('Website name must not exceed 20 characters.');
+      return false;
+    }
+    setError('');
+    return true;
+  };
+
+  const handleSaveWebsite = () => {
+    if (validateWebsiteName(websiteName)) {
+      setShowModal(false);
+      navigate('/website-builder', { state: { websiteName } });
+    }
   };
 
   return (
@@ -31,8 +61,35 @@ const Dashboard: React.FC = () => {
         }}
         title="Create New Website"
       >
-        <span className="text-pink">+</span>
+        <span className="color-primary">+</span>
       </button>
+
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Create New Website</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form.Group>
+            <Form.Label>Website Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter website name"
+              value={websiteName}
+              maxLength={20}
+              onChange={(e) => setWebsiteName(e.target.value)}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleSaveWebsite}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
