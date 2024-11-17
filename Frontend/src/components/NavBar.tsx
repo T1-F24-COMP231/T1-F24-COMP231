@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 const NavBar: React.FC = () => {
-  const location = useLocation(); // Get the current URL path
+  const location = useLocation(); 
 
   return (
     <header className="navbar navbar-expand-md d-print-none">
