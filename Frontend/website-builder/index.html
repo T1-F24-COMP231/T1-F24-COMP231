@@ -1,9 +1,19 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>GrapesJS Preset Webpage</title>
-    <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
+    <meta charset="utf-8" />
+    <title>GrapesJS Website Builder</title>
+    <!-- GrapesJS CSS -->
+    <link
+      href="https://unpkg.com/grapesjs/dist/css/grapes.min.css"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <!-- GrapesJS Plugins -->
     <script src="https://unpkg.com/grapesjs"></script>
     <style>
       body,
@@ -14,72 +24,323 @@
     </style>
   </head>
   <body>
+    <div id="gjs" style="height: 100vh; overflow: hidden"></div>
+    <script>
+      window.onload = () => {
+        const editor = grapesjs.init({
+          container: '#gjs',
+          height: '100%',
+          width: 'auto',
+          fromElement: true,
+          storageManager: {
+            id: 'gjs-',
+            type: 'local',
+            autosave: true,
+            autoload: true,
+            stepsBeforeSave: 1,
+          },
+          plugins: ['grapesjs-preset-webpage'],
+          pluginsOpts: {
+            'grapesjs-preset-webpage': {
+              blocks: [],
+            },
+          },
+          canvas: {
+            styles: [
+              'https://unpkg.com/grapesjs/dist/css/grapes.min.css',
+              'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css',
+            ],
+          },
+        });
 
-    <div id="gjs" style="height:0px; overflow:hidden">
-  
-      <style>
-        .panel {
-          width: 90%;
-          max-width: 700px;
-          border-radius: 3px;
-          padding: 30px 20px;
-          margin: 150px auto 0px;
-          background-color: #d983a6;
-          box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.25);
-          color:rgba(255,255,255,0.75);
-          font: caption;
-          font-weight: 100;
-        }
+        editor.Panels.addButton('options', {
+          id: 'save',
+          className: 'btn-save',
+          label: `<svg style="display:block;width:22px;height:22px" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M17,3A2,2 0 0,1 19,5V19A2,2 0 0,1 17,21H7A2,2 0 0,1 5,19V5A2,2 0 0,1 7,3H17M12,17A2.5,2.5 0 1,0 12,12.5A2.5,2.5 0 0,0 12,17M10,5V9H14V5H10Z" />
+            </svg>`,
+          command: 'save-command',
+          attributes: { title: 'Save Project' },
+        });
 
-        .welcome {
-          text-align: center;
-          font-weight: 100;
-          margin: 0px;
-        }
+        editor.Commands.add('save-command', {
+          run(editor) {
+            const html = editor.getHtml();
+            const css = editor.getCss();
+            console.log('Saved HTML:', html);
+            console.log('Saved CSS:', css);
 
-        .logo {
-          width: 70px;
-          height: 70px;
-          vertical-align: middle;
-        }
+            // Add save logic here,
+            alert('Project saved!');
+          },
+        });
 
-        .logo path {
-          pointer-events: none;
-          fill: none;
-          stroke-linecap: round;
-          stroke-width: 7;
-          stroke: #fff
-        }
+        // Add Tailwind Components here
+        const tailwindComponents = [
+          {
+            id: 'tailwind-button',
+            label: 'Button',
+            content: `<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Click Me</button>`,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-card',
+            label: 'Card',
+            content: `
+              <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <img class="w-full" src="https://via.placeholder.com/150" alt="Image">
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2">Card Title</div>
+                  <p class="text-gray-700 text-base">This is a simple card description.</p>
+                </div>
+              </div>
+            `,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-navbar',
+            label: 'Navbar',
+            content: `
+              <nav class="bg-gray-800 p-4 text-white">
+                <div class="container mx-auto">
+                  <a href="#" class="text-xl font-bold">Brand</a>
+                  <ul class="flex space-x-4">
+                    <li><a href="#" class="hover:underline">Home</a></li>
+                    <li><a href="#" class="hover:underline">About</a></li>
+                    <li><a href="#" class="hover:underline">Contact</a></li>
+                  </ul>
+                </div>
+              </nav>
+            `,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-footer',
+            label: 'Footer',
+            content: `
+              <footer class="bg-gray-900 text-white p-4 text-center">
+                <p>&copy; 2024 Your Company. All rights reserved.</p>
+              </footer>
+            `,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-alert',
+            label: 'Alert',
+            content: `<div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded" role="alert">This is an alert message.</div>`,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-grid',
+            label: 'Grid Layout',
+            content: `
+              <div class="grid grid-cols-3 gap-4">
+                <div class="bg-gray-300 p-4">Item 1</div>
+                <div class="bg-gray-300 p-4">Item 2</div>
+                <div class="bg-gray-300 p-4">Item 3</div>
+              </div>
+            `,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-hero',
+            label: 'Hero Section',
+            content: `
+              <div class="bg-blue-500 text-white p-10 text-center">
+                <h1 class="text-4xl font-bold">Welcome to My Website</h1>
+                <p class="text-xl mt-4">Build beautiful pages with GrapesJS & Tailwind</p>
+              </div>
+            `,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-profile-card',
+            label: 'Profile Card',
+            content: `
+              <div class="max-w-sm rounded overflow-hidden shadow-lg">
+                <img class="w-full" src="https://via.placeholder.com/150" alt="Profile">
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2">John Doe</div>
+                  <p class="text-gray-700 text-base">Software Developer at Your Company.</p>
+                </div>
+              </div>
+            `,
+            category: 'Tailwind Components',
+          },
+          {
+            id: 'tailwind-pricing',
+            label: 'Pricing Table',
+            content: `
+              <div class="p-4 bg-gray-100">
+                <div class="text-center mb-4">
+                  <h2 class="text-xl font-bold">Pricing Plan</h2>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                  <div class="p-4 bg-white rounded shadow text-center">
+                    <h3 class="font-bold">Basic</h3>
+                    <p class="text-lg">$10/month</p>
+                  </div>
+                  <div class="p-4 bg-white rounded shadow text-center">
+                    <h3 class="font-bold">Pro</h3>
+                    <p class="text-lg">$20/month</p>
+                  </div>
+                  <div class="p-4 bg-white rounded shadow text-center">
+                    <h3 class="font-bold">Enterprise</h3>
+                    <p class="text-lg">$30/month</p>
+                  </div>
+                </div>
+              </div>
+            `,
+            category: 'Tailwind Components',
+          },
+        ];
 
-        .big-title {
-          text-align: center;
-          font-size: 3.5rem;
-          margin: 15px 0;
-        }
+        tailwindComponents.forEach((component) => {
+          editor.Blocks.add(component.id, {
+            label: component.label,
+            content: component.content,
+            category: component.category,
+          });
+        });
 
-        .description {
-          text-align: justify;
-          font-size: 1rem;
-          line-height: 1.5rem;
-        }
-      </style>
-    </div>
-
-
-    <script type="text/javascript">
-window.onload = () => {
-  console.log('Initializing GrapesJS...');
-  const editor = grapesjs.init({
-    container: '#gjs',
-    height: '100%',
-    width: 'auto',
-    fromElement: true,
-    storageManager: false,
-    plugins: ['grapesjs-preset-webpage'],
-  });
-
-};
-
+        // Add Templates here
+        const templates = [
+          {
+            id: 'template-1',
+            label: 'Simple Landing Page',
+            content: `
+              <div class="bg-blue-50 p-8 text-center">
+                <h1 class="text-4xl font-bold mb-4">Welcome to Our Website</h1>
+                <p class="text-lg text-gray-600">Your journey starts here.</p>
+                <button class="mt-6 bg-blue-600 text-white py-2 px-4 rounded">Get Started</button>
+              </div>
+            `,
+          },
+          {
+            id: 'template-2',
+            label: 'Contact Us Page',
+            content: `
+              <div class="bg-gray-100 p-8">
+                <h2 class="text-3xl font-bold mb-4">Contact Us</h2>
+                <form class="space-y-4">
+                  <input class="w-full p-2 border rounded" placeholder="Your Name" />
+                  <input class="w-full p-2 border rounded" placeholder="Your Email" />
+                  <textarea class="w-full p-2 border rounded" placeholder="Your Message"></textarea>
+                  <button class="bg-blue-600 text-white py-2 px-4 rounded">Send</button>
+                </form>
+              </div>
+            `,
+          },
+          {
+            id: 'template-3',
+            label: 'About Us Page',
+            content: `
+              <div class="p-8">
+                <h1 class="text-4xl font-bold mb-4">About Us</h1>
+                <p class="text-lg text-gray-600">
+                  We are a team of passionate individuals committed to delivering quality and innovation.
+                </p>
+              </div>
+            `,
+          },
+          {
+            id: 'template-4',
+            label: 'Hero Section',
+            content: `
+              <div class="bg-indigo-600 text-white p-10 text-center">
+                <h1 class="text-5xl font-bold">Innovate with Us</h1>
+                <p class="text-xl mt-4">Join the revolution of digital innovation.</p>
+              </div>
+            `,
+          },
+          {
+            id: 'template-5',
+            label: 'Portfolio Page',
+            content: `
+              <div class="grid grid-cols-2 gap-4 p-8">
+                <div class="bg-gray-200 p-4 text-center">Project 1</div>
+                <div class="bg-gray-200 p-4 text-center">Project 2</div>
+                <div class="bg-gray-200 p-4 text-center">Project 3</div>
+                <div class="bg-gray-200 p-4 text-center">Project 4</div>
+              </div>
+            `,
+          },
+          {
+            id: 'template-6',
+            label: 'Services Page',
+            content: `
+              <div class="p-8">
+                <h2 class="text-3xl font-bold">Our Services</h2>
+                <ul class="list-disc list-inside mt-4">
+                  <li>Web Development</li>
+                  <li>UI/UX Design</li>
+                  <li>Digital Marketing</li>
+                </ul>
+              </div>
+            `,
+          },
+          {
+            id: 'template-7',
+            label: 'Blog Post Page',
+            content: `
+              <div class="p-8">
+                <h1 class="text-4xl font-bold mb-4">How to Boost Your Productivity</h1>
+                <p class="text-lg text-gray-600">
+                  Discover tips and tricks to enhance your productivity and achieve your goals effectively.
+                </p>
+              </div>
+            `,
+          },
+          {
+            id: 'template-8',
+            label: 'Testimonials Page',
+            content: `
+              <div class="bg-gray-100 p-8">
+                <h2 class="text-3xl font-bold mb-4">What Our Clients Say</h2>
+                <div class="flex space-x-4">
+                  <div class="p-4 bg-white rounded shadow">
+                    "Amazing service!" - Jane Doe
+                  </div>
+                  <div class="p-4 bg-white rounded shadow">
+                    "Highly recommend." - John Smith
+                  </div>
+                </div>
+              </div>
+            `,
+          },
+          {
+            id: 'template-9',
+            label: 'Gallery Page',
+            content: `
+              <div class="grid grid-cols-3 gap-2 p-4">
+                <img src="https://via.placeholder.com/150" class="rounded shadow" />
+                <img src="https://via.placeholder.com/150" class="rounded shadow" />
+                <img src="https://via.placeholder.com/150" class="rounded shadow" />
+              </div>
+            `,
+          },
+          {
+            id: 'template-10',
+            label: 'FAQ Page',
+            content: `
+              <div class="p-8">
+                <h2 class="text-3xl font-bold">Frequently Asked Questions</h2>
+                <div class="mt-4">
+                  <h4 class="font-bold">What services do you offer?</h4>
+                  <p>We offer web development, design, and marketing solutions.</p>
+                </div>
+              </div>
+            `,
+          },
+        ];
+        templates.forEach((template) => {
+          editor.Blocks.add(template.id, {
+            label: template.label,
+            content: template.content,
+            category: 'Templates',
+          });
+        });
+      };
     </script>
   </body>
 </html>

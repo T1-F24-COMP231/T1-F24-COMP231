@@ -1,0 +1,32 @@
+.bg-prpl-lt{
+    background-color: #f7ecfa;
+}
+
+@media (min-width: 768px) {
+    .navbar-expand-md .nav-item.active:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -.25rem;
+        border: 0 var(--tblr-border-style) #443a3c;
+        border-bottom-width: 2px;
+    }
+}
+
+.color-primary{
+    color: #ea4c89 !important;
+}
+
+.bg-primary{
+    background-color: #443a3c !important;
+}
+
+.color-secondary{
+    color:#443a3c !important;
+}
+
+.bg-none{
+    background-color: unset !important;
+}
+
