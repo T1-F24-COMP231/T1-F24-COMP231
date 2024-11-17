@@ -40,6 +40,17 @@ const Dashboard: React.FC = () => {
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
+      <div className="page-header d-print-none">
+          <div className="container-xl">
+            <div className="row g-2 align-items-center">
+              <div className="col">
+                <h2 className="page-title">
+                  Dashboard
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
       <button
         onClick={handleCreateWebsite}
         style={{
@@ -71,7 +82,7 @@ const Dashboard: React.FC = () => {
         <Modal.Body>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form.Group>
-            <Form.Label>Website Name</Form.Label>
+            <Form.Label className='required'>Website Name</Form.Label>
             <Form.Control
               type="text"
               placeholder="Enter website name"

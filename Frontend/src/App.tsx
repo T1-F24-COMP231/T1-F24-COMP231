@@ -13,7 +13,10 @@ import Footer from './components/Footer';
 const App: React.FC = () => {
   return (
     <>
+    <div className="page">
       <NavBar></NavBar>
+      <div className="page-wrapper">
+      <div className="page-body mt-0">
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/website-builder" element={<WebsiteBuilder />} />
@@ -22,7 +25,10 @@ const App: React.FC = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/website-status" element={<WebsiteStatusPage />} />
       </Routes>
+      </div>
       <Footer></Footer>
+      </div>
+      </div>
     </>
   );
 };

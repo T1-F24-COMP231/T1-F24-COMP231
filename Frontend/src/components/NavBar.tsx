@@ -7,7 +7,7 @@ const NavBar: React.FC = () => {
   return (
     <>
       <header className="navbar navbar-expand-md d-print-none ">
-        <div className="container-fluid">
+        <div className="container-xl">
           <button
             className="navbar-toggler"
             type="button"
@@ -20,7 +20,7 @@ const NavBar: React.FC = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal ps-2 ms-1 color-primary">
+          <div className="navbar-brand navbar-brand-autodark d-none-navbar-horizontal ps-2 ms-2 color-primary">
             <Link to="/" className="text-decoration-none text-reset ">
               <span>
                 <svg
@@ -79,7 +79,7 @@ const NavBar: React.FC = () => {
       <header className="navbar-expand-md">
         <div className="collapse navbar-collapse" id="navbar-menu">
           <div className="navbar">
-            <div className="container-fluid">
+            <div className="container-xl">
               <div className="row flex-fill align-items-center">
                 <div className="col">
                   <ul className="navbar-nav">
@@ -89,7 +89,7 @@ const NavBar: React.FC = () => {
                       }`}
                     >
                       <Link className="nav-link " to="/">
-                        <span className="nav-link-icon d-md-none d-lg-inline-block">
+                        <span className="nav-link-icon d-md-none d-lg-inline-block m-0">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -108,11 +108,10 @@ const NavBar: React.FC = () => {
                             <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
                           </svg>
                         </span>
-                        {/* <span className="nav-link-title">Home</span> */}
                       </Link>
                     </li>
                     <li
-                      className={`nav-item ${
+                      className={`nav-item mx-1 ${
                         location.pathname === '/users' ? 'active' : ''
                       }`}
                     >
@@ -143,7 +142,7 @@ const NavBar: React.FC = () => {
                       </Link>
                     </li>
                     <li
-                      className={`nav-item ${
+                      className={`nav-item mx-1 ${
                         location.pathname === '/system-monitor' ? 'active' : ''
                       }`}
                     >
@@ -177,7 +176,7 @@ const NavBar: React.FC = () => {
                       </Link>
                     </li>
                     <li
-                      className={`nav-item ${
+                      className={`nav-item mx-1 ${
                         location.pathname === '/profile' ? 'active' : ''
                       }`}
                     >
@@ -208,7 +207,7 @@ const NavBar: React.FC = () => {
                       </Link>
                     </li>
                     <li
-                      className={`nav-item ${
+                      className={`nav-item mx-1 ${
                         location.pathname === '/website-status' ? 'active' : ''
                       }`}
                     >
