@@ -1,0 +1,84 @@
+.user-management {
+  padding: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.add-user-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s;
+}
+
+.add-user-btn:hover {
+  background-color: #0056b3;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+  background-color: #f4f4f4;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.edit-btn {
+  background-color: #f0ad4e;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+}
+
+.edit-btn:hover {
+  background-color: #ec971f;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
+
+@media (max-width: 768px) {
+  .user-table {
+    font-size: 14px;
+  }
+
+  .user-table th,
+  .user-table td {
+    padding: 8px;
+  }
+
+  .add-user-btn {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
