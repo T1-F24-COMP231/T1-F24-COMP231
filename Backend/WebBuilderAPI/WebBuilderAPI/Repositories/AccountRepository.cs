@@ -54,12 +54,42 @@ namespace WebBuilderAPI.Repositories
         //Profile updation
         public async Task<Account> GetAccountById(int id)
         {
-            return await _context.Accounts.FindAsync(id);
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id)
+                ?? throw new Exception("User Not found");
         }
 
         public async Task UpdateAccount(Account account)
         {
             _context.Accounts.Update(account);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Account> LoginAsAdminUser(string email, string password)
+        {
+            return await _context.Accounts.FirstOrDefaultAsync(u => u.Email == email && u.Password == password && u.IsAdmin) 
+                    ?? throw new Exception("User Not found");
+        }
+
+        public async Task<Account> LoginAsCustomerUser(string email, string password)
+        {
+            return await _context.Accounts.FirstOrDefaultAsync(u => u.Email == email && u.Password == password && u.IsAdmin == false)
+                    ?? throw new Exception("User Not found");
+        }
+
+        public async Task LogOut(int id)
+        {
+            Account user = await _context.Accounts.FirstOrDefaultAsync(a => a.Id == id)
+                ?? throw new Exception("User Not found");
+            user.RefreshToken = null;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateSessionData(string email, string refreshToken, DateTime expiryDate)
+        {
+            Account user = await _context.Accounts.FirstOrDefaultAsync(a => a.Email == email)
+                ?? throw new Exception("User Not found");
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = expiryDate;
             await _context.SaveChangesAsync();
         }
     }

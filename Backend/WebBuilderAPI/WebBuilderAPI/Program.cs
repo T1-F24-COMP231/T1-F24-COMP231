@@ -1,7 +1,12 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
 using WebBuilderAPI.Data;
 using WebBuilderAPI.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace WebBuilderAPI
 {
@@ -20,6 +25,76 @@ namespace WebBuilderAPI
                 {
                     builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
                 }));
+            #endregion
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy
+                        .AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
+
+            #region Authentication and JWT
+            // Remove default handler for JWT
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            builder.Services.AddAuthentication(options =>
+            {
+                //Set entity framework to use Bearer's authentication
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(config =>
+            {
+                //Set configuration for token service
+                config.SaveToken = true;
+                config.RequireHttpsMetadata = false;
+                config.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
+                    RoleClaimType = "Role",
+                    ValidIssuer = "WebBuilder",
+                    ValidAudience = "WebBuilder",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JsonWebTokenKey"])),
+                };
+            });
+            #endregion
+
+            #region Swagger
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
+            });
             #endregion
 
             builder.Services.AddControllers();
@@ -41,6 +116,8 @@ namespace WebBuilderAPI
             }
 
             //app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
