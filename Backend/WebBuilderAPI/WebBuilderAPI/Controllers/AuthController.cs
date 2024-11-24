@@ -21,6 +21,7 @@ namespace WebBuilderAPI.Controllers
         private readonly AccountRepository _accountRepository;
         private readonly static int TOKEN_DAYS = 7;
         private readonly static int SESSION_TIME = 120;
+        private readonly static string JWT_KEY_TOKEN = "m-N8Q~M-68b~wY28c~oQm9iNlPtiN~KlTp~1ScK0";
 
         public AuthController(AccountRepository accountRepository, IConfiguration configuration)
         {
@@ -153,7 +154,7 @@ namespace WebBuilderAPI.Controllers
 
             Claims.Add(new Claim("Id", user.Id.ToString()));
 
-            SymmetricSecurityKey Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JsonWebTokenKey"]));
+            SymmetricSecurityKey Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWT_KEY_TOKEN));
 
             SigningCredentials Credentials = new SigningCredentials(Key, SecurityAlgorithms.HmacSha256);
 
@@ -187,7 +188,7 @@ namespace WebBuilderAPI.Controllers
                 ValidateAudience = true,
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JsonWebTokenKey"])),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWT_KEY_TOKEN)),
                 ValidateLifetime = false,
                 ValidIssuer = "WebBuilder",
                 ValidAudience = "WebBuilder",

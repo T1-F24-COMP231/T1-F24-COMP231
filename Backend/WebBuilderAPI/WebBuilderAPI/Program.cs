@@ -12,6 +12,7 @@ namespace WebBuilderAPI
 {
     public class Program
     {
+        private readonly static string JWT_KEY_TOKEN = "m-N8Q~M-68b~wY28c~oQm9iNlPtiN~KlTp~1ScK0";
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -63,7 +64,7 @@ namespace WebBuilderAPI
                     RoleClaimType = "Role",
                     ValidIssuer = "WebBuilder",
                     ValidAudience = "WebBuilder",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JsonWebTokenKey"])),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWT_KEY_TOKEN)),
                 };
             });
             #endregion
