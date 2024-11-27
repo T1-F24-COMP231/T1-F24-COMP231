@@ -15,27 +15,13 @@ namespace WebBuilderAPI.Repositories
         public async Task CreateBackup(int customerId)
         {
 
-            CustomerBackup? backup = await _context.CustomerBackup.FirstOrDefaultAsync(c => c.CustomerId == customerId);
-
-            //If it's not the first backup we update the date, otherwise we create a register
-            if (backup != null) 
+            CustomerBackup backup = new CustomerBackup()
             {
-                backup.CreatedDate = DateTime.Now;
-            }
-            else
-            {
-                backup = new CustomerBackup()
-                {
-                    CreatedDate = DateTime.Now,
-                    CustomerId = customerId
-                };
-                await _context.CustomerBackup.AddAsync(backup);
-                await _context.SaveChangesAsync();
-            }
+                CreatedDate = DateTime.Now,
+                CustomerId = customerId
+            };
 
-            //Remove the old records
-            IEnumerable<LayoutBackup> layouts = await _context.LayoutBackup.Where(c => c.UserId == customerId).ToListAsync();
-            _context.RemoveRange(layouts);
+            await _context.CustomerBackup.AddAsync(backup);
 
             //Insert the new records
             IEnumerable<Layout> currentLayouts = await _context.Layouts.Where(c => c.UserId == customerId).ToListAsync();
@@ -61,14 +47,14 @@ namespace WebBuilderAPI.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task LoadBackup(int customerId)
+        public async Task LoadBackup(int customerId, int backupId)
         {
-            //Remove the old records
+            //Remove the records in the active layout tables
             IEnumerable<Layout> layouts = await _context.Layouts.Where(c => c.UserId == customerId).ToListAsync();
             _context.RemoveRange(layouts);
 
             //Insert the new records
-            IEnumerable<LayoutBackup> currentLayouts = await _context.LayoutBackup.Where(c => c.UserId == customerId).ToListAsync();
+            IEnumerable<LayoutBackup> currentLayouts = await _context.LayoutBackup.Where(c => c.UserId == customerId && c.Id == backupId).ToListAsync();
 
             foreach (var item in currentLayouts)
             {
@@ -89,6 +75,11 @@ namespace WebBuilderAPI.Repositories
                 await _context.Layouts.AddAsync(newBackup);
             }
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<CustomerBackup>> BackupHistory(int customerId)
+        {
+            return await _context.CustomerBackup.Where(c => c.CustomerId == customerId).ToListAsync();
         }
     }
 }

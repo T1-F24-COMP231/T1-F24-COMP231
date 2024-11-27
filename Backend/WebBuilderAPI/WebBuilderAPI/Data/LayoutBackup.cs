@@ -1,8 +1,17 @@
-﻿namespace WebBuilderAPI.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace WebBuilderAPI.Data
 {
     public class LayoutBackup
     {
         public int Id { get; set; }
+
+        [ForeignKey(nameof(CustomerBackup))]
+        public int BackupId { get; set; }
+
+        [JsonIgnore]
+        public CustomerBackup CustomerBackup { get; set; }
         public int UserId { get; set; }
         public string Title { get; set; }
         public string HtmlContent { get; set; }
