@@ -22,5 +22,7 @@ namespace WebBuilderAPI.Data
 
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Layout> Layouts { get; set; }
+        public DbSet<CustomerBackup> CustomerBackup { get; set; }
+        public DbSet<LayoutBackup> LayoutBackup { get; set; }
     }
 }

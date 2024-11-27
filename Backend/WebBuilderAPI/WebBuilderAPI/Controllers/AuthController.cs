@@ -5,11 +5,10 @@ using System.Security.Cryptography;
 using System.Text;
 using WebBuilderAPI.Data;
 using WebBuilderAPI.Repositories;
-
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Identity.Data;
 using WebBuilderAPI.RequestModels;
+using WebBuilderAPI.Services;
 
 namespace WebBuilderAPI.Controllers
 {
@@ -19,14 +18,16 @@ namespace WebBuilderAPI.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly AccountRepository _accountRepository;
+        private readonly AuthServices _authServices;
         private readonly static int TOKEN_DAYS = 7;
         private readonly static int SESSION_TIME = 120;
         private readonly static string JWT_KEY_TOKEN = "m-N8Q~M-68b~wY28c~oQm9iNlPtiN~KlTp~1ScK0";
 
-        public AuthController(AccountRepository accountRepository, IConfiguration configuration)
+        public AuthController(AccountRepository accountRepository, IConfiguration configuration, AuthServices authServices)
         {
             _accountRepository = accountRepository;
             _configuration = configuration;
+            _authServices = authServices;
         }
 
         [HttpPost("admin/login")]
@@ -91,7 +92,7 @@ namespace WebBuilderAPI.Controllers
         {
             try
             {
-                int userId =GetUserIdFromRequest(HttpContext.User);
+                int userId = _authServices.GetUserIdFromRequest(HttpContext.User);
                 await _accountRepository.LogOut(userId);
 
                 return NoContent();
@@ -109,7 +110,7 @@ namespace WebBuilderAPI.Controllers
             try
             {
                 ClaimsPrincipal principal = GetPrincipalFromExpiredToken(session.JwtToken);
-                int userId = GetUserIdFromRequest(principal);
+                int userId = _authServices.GetUserIdFromRequest(principal);
 
                 Account user = await _accountRepository.GetAccountById(userId);
 
@@ -168,17 +169,6 @@ namespace WebBuilderAPI.Controllers
                 signingCredentials: Credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(Token);
-        }
-
-        private int GetUserIdFromRequest(ClaimsPrincipal principal)
-        {
-            Claim? ExtractedClaim = principal.Claims
-                .FirstOrDefault(x => x.Type.Equals("Id"));
-
-            if (ExtractedClaim == null)
-                throw new Exception("User is not Authorized" );
-            int claimId = int.Parse(ExtractedClaim.Value);
-            return claimId;
         }
 
         private ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
