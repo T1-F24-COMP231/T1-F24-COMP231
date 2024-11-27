@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebBuilderAPI.Data;
 
@@ -10,9 +11,11 @@ using WebBuilderAPI.Data;
 namespace WebBuilderAPI.Migrations
 {
     [DbContext(typeof(DbContextApp))]
-    partial class DbContextAppModelSnapshot : ModelSnapshot
+    [Migration("20241127134840_Customer_Backup_V2")]
+    partial class Customer_Backup_V2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,36 +61,6 @@ namespace WebBuilderAPI.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("WebBuilderAPI.Data.BillingInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CardNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("NameOnCard")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BillingInfo");
-                });
-
             modelBuilder.Entity("WebBuilderAPI.Data.CustomerBackup", b =>
                 {
                     b.Property<int>("Id")
@@ -97,12 +70,15 @@ namespace WebBuilderAPI.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("CustomerBackupId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerBackupId");
 
                     b.ToTable("CustomerBackup");
                 });
@@ -200,75 +176,14 @@ namespace WebBuilderAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BackupId");
-
                     b.ToTable("LayoutBackup");
-                });
-
-            modelBuilder.Entity("WebBuilderAPI.Data.Subscription", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BillingId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ChargeDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BillingId");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("subscription");
                 });
 
             modelBuilder.Entity("WebBuilderAPI.Data.CustomerBackup", b =>
                 {
-                    b.HasOne("WebBuilderAPI.Data.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("WebBuilderAPI.Data.LayoutBackup", b =>
-                {
-                    b.HasOne("WebBuilderAPI.Data.CustomerBackup", "CustomerBackup")
+                    b.HasOne("WebBuilderAPI.Data.CustomerBackup", null)
                         .WithMany("Backups")
-                        .HasForeignKey("BackupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CustomerBackup");
-                });
-
-            modelBuilder.Entity("WebBuilderAPI.Data.Subscription", b =>
-                {
-                    b.HasOne("WebBuilderAPI.Data.BillingInfo", "BillingInfo")
-                        .WithMany()
-                        .HasForeignKey("BillingId");
-
-                    b.HasOne("WebBuilderAPI.Data.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("BillingInfo");
+                        .HasForeignKey("CustomerBackupId");
                 });
 
             modelBuilder.Entity("WebBuilderAPI.Data.CustomerBackup", b =>
