@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.IO;
 using System.Management;
@@ -10,6 +11,7 @@ namespace WebBuilderAPI.Controllers
     public class ServerHealthController : ControllerBase
     {
         [HttpGet("stats")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult GetServerHealth()
         {
             var healthStats = new

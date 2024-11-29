@@ -69,6 +69,13 @@ namespace WebBuilderAPI
             });
             #endregion
 
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy =>
+                    policy.RequireRole("Admin"));
+            });
+
             #region Swagger
             builder.Services.AddSwaggerGen(c =>
             {
@@ -106,6 +113,20 @@ namespace WebBuilderAPI
             builder.Services.AddScoped<AccountRepository>();
             // Register LayoutRepository with DI container
             builder.Services.AddScoped<LayoutRepository>();
+            builder.Services.AddScoped<SubscritionRepository>();
+            builder.Services.AddScoped<IUserActivityLogRepository, UserActivityLogRepository>();
+            builder.Services.AddScoped<AuthServices>();
+            // Configure BackupRepository
+            builder.Services.AddScoped<IBackupRepository>(provider =>
+            {
+                var dbContext = provider.GetRequiredService<DbContextApp>();
+                return new BackupRepository(
+                    dbContext,
+                    connectionString,
+                    @"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqldump.exe",
+                    @"C:\Program Files\MySQL\MySQL Server 8.0\bin\mysql.exe"
+                );
+            });
 
             var app = builder.Build();
 
@@ -119,7 +140,7 @@ namespace WebBuilderAPI
             app.UseHttpsRedirection();
 
             app.UseCors("CorsPolicy");
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

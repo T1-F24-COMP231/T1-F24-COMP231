@@ -19,6 +19,13 @@ namespace WebBuilderAPI.Repositories
             Subscription? subscription = await _context.subscription.FirstOrDefaultAsync(c => c.Id == customerId);
             return subscription;
         }
+        public async Task<IEnumerable<Subscription>> GetAllSubscriptions()
+        {
+            return await _context.subscription
+       .Include(s => s.Account)          // Include related Account
+       .Include(s => s.BillingInfo)      // Include related BillingInfo
+       .ToListAsync();
+        }
         public async Task RenewSubscription (int customerId)
         {
             int billingId = 0;

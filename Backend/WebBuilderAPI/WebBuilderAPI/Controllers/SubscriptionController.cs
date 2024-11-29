@@ -91,5 +91,44 @@ namespace WebBuilderAPI.Controllers
                 return StatusCode(500, "Internal Server Error - " + ex.Message);
             }
         }
+
+        [HttpGet("all")]
+         [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> GetAllSubscriptions()
+        {
+            try
+            {
+                // Fetch subscriptions and include Account and BillingInfo
+                var subscriptions = await _subscritionRepository.GetAllSubscriptions();
+
+                // Project the data to a new format
+                var result = subscriptions.Select(sub => new
+                {
+                    sub.Id,
+                    Customer = new
+                    {
+                        sub.Account.FirstName,
+                        sub.Account.LastName,
+                        sub.Account.Email
+                    },
+                    BillingInfo = sub.BillingInfo != null ? new
+                    {
+                        sub.BillingInfo.Name,
+                        sub.BillingInfo.NameOnCard,
+                        sub.BillingInfo.PostalCode
+                    } : null,
+                    sub.ChargeDate,
+                    sub.ExpiryDate
+                }).ToList();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error - " + ex.Message);
+            }
+        }
+
+
     }
 }
