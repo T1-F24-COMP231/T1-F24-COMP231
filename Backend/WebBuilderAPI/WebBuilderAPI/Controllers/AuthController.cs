@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using WebBuilderAPI.RequestModels;
 using WebBuilderAPI.Services;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace WebBuilderAPI.Controllers
 {
@@ -22,12 +23,13 @@ namespace WebBuilderAPI.Controllers
         private readonly static int TOKEN_DAYS = 7;
         private readonly static int SESSION_TIME = 120;
         private readonly static string JWT_KEY_TOKEN = "m-N8Q~M-68b~wY28c~oQm9iNlPtiN~KlTp~1ScK0";
-
-        public AuthController(AccountRepository accountRepository, IConfiguration configuration, AuthServices authServices)
+        private readonly IUserActivityLogRepository _activityLogRepository;
+        public AuthController(AccountRepository accountRepository, IConfiguration configuration, AuthServices authServices, IUserActivityLogRepository activityLogRepository)
         {
             _accountRepository = accountRepository;
             _configuration = configuration;
             _authServices = authServices;
+            _activityLogRepository = activityLogRepository;
         }
 
         [HttpPost("admin/login")]
@@ -70,6 +72,8 @@ namespace WebBuilderAPI.Controllers
                 string refreshToken = await RefreshToken();
 
                 await _accountRepository.UpdateSessionData(userResult.Email, refreshToken, DateTime.Now.AddDays(TOKEN_DAYS));
+                // Log the user activity
+                await _activityLogRepository.AddActivityLogAsync(userResult.Id, "User logged in successfully.");
 
                 return Ok(new
                 {
@@ -94,6 +98,8 @@ namespace WebBuilderAPI.Controllers
             {
                 int userId = _authServices.GetUserIdFromRequest(HttpContext.User);
                 await _accountRepository.LogOut(userId);
+                // Log the user activity
+                await _activityLogRepository.AddActivityLogAsync(userId, "User Logout  successfully.");
 
                 return NoContent();
             }
