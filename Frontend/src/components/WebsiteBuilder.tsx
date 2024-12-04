@@ -1,11 +1,12 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
+
 const WebsiteBuilder: React.FC = () => {
   const location = useLocation();
   const websiteName = location.state?.websiteName || 'New Website';
 
-  return (
+  return (<>
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Header with website name */}
       <header
@@ -34,6 +35,7 @@ const WebsiteBuilder: React.FC = () => {
         title={`GrapesJS Editor - ${websiteName}`}
       />
     </div>
+    </>
   );
 };
 

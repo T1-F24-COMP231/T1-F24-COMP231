@@ -34,6 +34,7 @@ const UserListPage: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
+    <>
     <div className={styles.userListContainer}>
       <h1>User List</h1>
       <table className={styles.userTable}>
@@ -57,6 +58,7 @@ const UserListPage: React.FC = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 
