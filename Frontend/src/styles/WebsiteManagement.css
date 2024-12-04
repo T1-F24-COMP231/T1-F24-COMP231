@@ -1,0 +1,30 @@
+.website-management-dashboard {
+  padding: 20px;
+  text-align: center;
+}
+
+.website-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.website-card {
+  flex: 1 1 calc(100% - 30px); /* to be Adjusted for smaller screens */
+  max-width: 300px; /*to be Adjusted max width for larger screens */
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: left;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.website-card:hover {
+  transform: translateY(-5px);
+  background-color: #f0f8ff;
+}
