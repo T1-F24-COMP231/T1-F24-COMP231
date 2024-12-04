@@ -13,6 +13,9 @@ import './styles/App.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import AdminLogin from './components/admin/AdminLogin';
+import BackupManagement from './components/backup-management/BackupManagement'; // Import BackupManagement component
+
+import './styles/App.css';
 
 const App: React.FC = () => {
   const handleUserFormSubmit = (user: {
@@ -45,6 +48,8 @@ const App: React.FC = () => {
                 element={<WebsiteManagementDashboard />}
               />
               <Route path="/website/:id" element={<WebsiteDetails />} />
+              {/* Added route for backup management */}
+              <Route path="/backup-management" element={<BackupManagement />} />
             </Routes>
           </div>
           <Footer />
