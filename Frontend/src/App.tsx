@@ -1,136 +1,103 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import WebsiteManagementDashboard from "./components/management-dashboard/WebsiteManagementDashboard";
-import WebsiteDetails from "./components/management-dashboard/WebsiteDetails";
 import WebsiteBuilder from "./components/WebsiteBuilder";
 import UserListPage from "./components/admin/UserListPage";
 import SystemMonitorPage from "./components/admin/SystemMonitorPage";
 import ProfilePage from "./components/ProfilePage";
 import WebsiteStatusPage from "./components/WebsiteStatusPage";
 import AdminLogin from "./components/admin/AdminLogin";
-import Footer from "./components/Footer";
+import CustomerLogin from "./components/customer/CustomerLogin";
+import WebsiteManagementDashboard from "./components/management-dashboard/WebsiteManagementDashboard";
+import WebsiteDetails from "./components/management-dashboard/WebsiteDetails";
 import NavBar from "./components/NavBar";
-import "./styles/App.css";
-import { logoutAdmin } from "./api/logoutApi";
-
-// Mock authentication function (replace with actual backend logic)
-const isAuthenticated = () => {
-  return !!localStorage.getItem("authToken"); // Check if token exists in local storage
-};
-
-// Protected Route Component
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" replace />;
-};
+import Footer from "./components/Footer";
+import { useAuth } from "./context/AuthContext";
 
 const App: React.FC = () => {
-  const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = useState(isAuthenticated());
+  const { token, isAdmin, logout } = useAuth();
 
-  const handleLogin = (token: string) => {
-    localStorage.setItem("authToken", token);
-    setLoggedIn(true);
-    navigate("/dashboard");
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logoutAdmin(); 
-      localStorage.removeItem("authToken");
-      setLoggedIn(false);
-      navigate("/login");
-    } catch (error: any) {
-      console.error("Logout failed:", error.message);
-      alert(error.message); 
+  const handleLogout = () => {
+    logout();
+    if (isAdmin) {
+      window.location.href = "/admin/login";
+    } else {
+      window.location.href = "/login";
     }
   };
 
-  useEffect(() => {
-    if (!loggedIn) navigate("/login");
-  }, [loggedIn, navigate]);
-
   return (
     <div className="page">
-      {loggedIn && <NavBar onLogout={handleLogout} />}
+      {token && <NavBar onLogout={handleLogout} />}
       <div className="page-wrapper">
         <div className="page-body mt-0">
           <Routes>
-            {/* Login Route */}
-            <Route path="/login" element={<AdminLogin onLogin={handleLogin} />} />
+            Base Route: Redirect based on login status
+            <Route
+              path="/"
+              element={<Navigate to={token ? "/dashboard" : "/login"} replace />}
+            />
 
-            {/* Protected Routes */}
+            <Route path="/admin/login" element={<AdminLogin />} />
+
+            <Route path="/login" element={<CustomerLogin />} />
+
             <Route
               path="/dashboard"
               element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
+                token ? <Dashboard /> : <Navigate to="/login" replace />
               }
             />
             <Route
               path="/website-builder"
               element={
-                <ProtectedRoute>
-                  <WebsiteBuilder />
-                </ProtectedRoute>
+                token ? <WebsiteBuilder /> : <Navigate to="/login" replace />
               }
             />
             <Route
               path="/users"
               element={
-                <ProtectedRoute>
-                  <UserListPage />
-                </ProtectedRoute>
+                token ? <UserListPage /> : <Navigate to="/login" replace />
               }
             />
             <Route
               path="/system-monitor"
               element={
-                <ProtectedRoute>
-                  <SystemMonitorPage />
-                </ProtectedRoute>
+                token ? <SystemMonitorPage /> : <Navigate to="/login" replace />
               }
             />
             <Route
               path="/profile"
               element={
-                <ProtectedRoute>
-                  <ProfilePage />
-                </ProtectedRoute>
+                token ? <ProfilePage /> : <Navigate to="/login" replace />
               }
             />
             <Route
               path="/website-status"
               element={
-                <ProtectedRoute>
-                  <WebsiteStatusPage />
-                </ProtectedRoute>
+                token ? <WebsiteStatusPage /> : <Navigate to="/login" replace />
               }
             />
             <Route
               path="/management-dashboard"
               element={
-                <ProtectedRoute>
+                token ? (
                   <WebsiteManagementDashboard />
-                </ProtectedRoute>
+                ) : (
+                  <Navigate to="/login" replace />
+                )
               }
             />
             <Route
               path="/website/:id"
               element={
-                <ProtectedRoute>
-                  <WebsiteDetails />
-                </ProtectedRoute>
+                token ? <WebsiteDetails /> : <Navigate to="/login" replace />
               }
             />
 
-            {/* Default Route */}
             <Route
               path="*"
-              element={
-                loggedIn ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />
-              }
+              element={<Navigate to={token ? "/dashboard" : "/login"} replace />}
             />
           </Routes>
         </div>
