@@ -1,64 +1,75 @@
-import React, { useState } from "react";
-import styles from "../../styles/AdminLogin.module.css";
-import { loginAdmin } from "../../api/loinAPI";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Form, Button, Alert, Container, Row, Col, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { loginAdmin } from '../../api/loinAPI';
 
-const AdminLogin: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const navigate = useNavigate(); 
+interface AdminLoginProps {
+  onLogin: (token: string) => void;
+}
+
+const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
+    setError('');
+    setSuccess('');
 
     try {
       const response = await loginAdmin({ email, password });
-      setSuccess("Login successful!");
-      console.log("Login Response:", response);
-      navigate('/dashboard');
-      
+      setSuccess('Login successful!');
+      const token = response.token || 'mock-token'; // Replace with real token logic
+      onLogin(token);
     } catch (err: any) {
-      setError(err.message || "An error occurred during login.");
+      setError(err.message || 'An error occurred during login.');
     }
   };
 
   return (
-    <div className={styles.container}>
-      <form className={styles.loginForm} onSubmit={handleSubmit}>
-        <h2>Admin Login</h2>
-        {error && <p className={styles.error}>{error}</p>}
-        {success && <p className={styles.success}>{success}</p>}
-
-        <div className={styles.inputGroup}>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className={styles.inputGroup}>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit" className={styles.submitButton}>
-          Log In
-        </button>
-      </form>
-    </div>
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+      <Row className="w-100">
+        <Col md={{ span: 6, offset: 3 }}>
+          <Card className="shadow">
+            <Card.Body>
+              <h3 className="text-center mb-4">Admin Login</h3>
+              {error && <Alert variant="danger">{error}</Alert>}
+              {success && <Alert variant="success">{success}</Alert>}
+              <Form onSubmit={handleSubmit}>
+                <Form.Group className="mb-3" controlId="formEmail">
+                  <Form.Label>Email Address</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="Enter email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                <Form.Group className="mb-4" controlId="formPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </Form.Group>
+                <div className="d-grid">
+                  <Button variant="primary" type="submit" size="lg">
+                    Log In
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
+import NavBar from './NavBar';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -39,7 +40,8 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    
+<>
+<NavBar />
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <div className="page-header d-print-none">
           <div className="container-xl">
@@ -102,7 +104,7 @@ const Dashboard: React.FC = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div></>
   );
 };
 

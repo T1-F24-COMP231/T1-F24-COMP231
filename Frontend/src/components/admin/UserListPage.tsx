@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../../api/userApi';
 import styles from '../../styles/UserListPage.module.css';
+import NavBar from '../NavBar';
 
 type User = {
   id: string;
@@ -34,6 +35,8 @@ const UserListPage: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
+    <>
+    <NavBar/>
     <div className={styles.userListContainer}>
       <h1>User List</h1>
       <table className={styles.userTable}>
@@ -57,6 +60,7 @@ const UserListPage: React.FC = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

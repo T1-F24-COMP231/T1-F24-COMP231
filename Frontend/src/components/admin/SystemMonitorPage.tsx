@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchSystemStats } from '../../api/systemStatsApi';
 import styles from '../../styles/SystemMonitorPage.module.css';
+import NavBar from '../NavBar';
 
 type SystemStats = {
   hardwareInfo: {
@@ -52,6 +53,8 @@ const SystemMonitorPage: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
+    <>
+    <NavBar/>
     <div className={styles.systemMonitorContainer}>
       <h1>System Monitor</h1>
       {stats ? (
@@ -114,6 +117,7 @@ const SystemMonitorPage: React.FC = () => {
         <div>No data available</div>
       )}
     </div>
+    </>
   );
 };
 
