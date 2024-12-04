@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { fetchSystemStats } from '../../api/systemStatsApi';
 import styles from '../../styles/SystemMonitorPage.module.css';
-import NavBar from '../NavBar';
 
 type SystemStats = {
   hardwareInfo: {
@@ -54,7 +53,6 @@ const SystemMonitorPage: React.FC = () => {
 
   return (
     <>
-    <NavBar/>
     <div className={styles.systemMonitorContainer}>
       <h1>System Monitor</h1>
       {stats ? (

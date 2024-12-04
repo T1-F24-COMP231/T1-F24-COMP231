@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, Alert, Container, Row, Col, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { loginAdmin } from '../../api/loinAPI';
+import { loginAdmin } from '../../api/loginAPI';
 
 interface AdminLoginProps {
   onLogin: (token: string) => void;
@@ -12,7 +11,6 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +20,7 @@ const AdminLogin: React.FC<AdminLoginProps> = ({ onLogin }) => {
     try {
       const response = await loginAdmin({ email, password });
       setSuccess('Login successful!');
-      const token = response.token || 'mock-token'; // Replace with real token logic
+      const token = response.token 
       onLogin(token);
     } catch (err: any) {
       setError(err.message || 'An error occurred during login.');

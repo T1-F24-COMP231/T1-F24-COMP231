@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import WebsiteManagementDashboard from './components/management-dashboard/WebsiteManagementDashboard';
-import WebsiteDetails from './components/management-dashboard/WebsiteDetails';
-import WebsiteBuilder from './components/WebsiteBuilder';
-import UserListPage from './components/admin/UserListPage';
-import SystemMonitorPage from './components/admin/SystemMonitorPage';
-import ProfilePage from './components/ProfilePage';
-import WebsiteStatusPage from './components/WebsiteStatusPage';
-import AdminLogin from './components/admin/AdminLogin';
-import Footer from './components/Footer';
-import NavBar from './components/NavBar';
-import './styles/App.css';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import Dashboard from "./components/Dashboard";
+import WebsiteManagementDashboard from "./components/management-dashboard/WebsiteManagementDashboard";
+import WebsiteDetails from "./components/management-dashboard/WebsiteDetails";
+import WebsiteBuilder from "./components/WebsiteBuilder";
+import UserListPage from "./components/admin/UserListPage";
+import SystemMonitorPage from "./components/admin/SystemMonitorPage";
+import ProfilePage from "./components/ProfilePage";
+import WebsiteStatusPage from "./components/WebsiteStatusPage";
+import AdminLogin from "./components/admin/AdminLogin";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
+import "./styles/App.css";
+import { logoutAdmin } from "./api/logoutApi";
 
 // Mock authentication function (replace with actual backend logic)
 const isAuthenticated = () => {
-  return !!localStorage.getItem('authToken'); // Check if token exists in local storage
+  return !!localStorage.getItem("authToken"); // Check if token exists in local storage
 };
 
 // Protected Route Component
@@ -28,24 +29,30 @@ const App: React.FC = () => {
   const [loggedIn, setLoggedIn] = useState(isAuthenticated());
 
   const handleLogin = (token: string) => {
-    localStorage.setItem('authToken', token);
+    localStorage.setItem("authToken", token);
     setLoggedIn(true);
-    navigate('/dashboard'); // Redirect to dashboard after login
+    navigate("/dashboard");
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    setLoggedIn(false);
-    navigate('/login'); // Redirect to login after logout
+  const handleLogout = async () => {
+    try {
+      await logoutAdmin(); 
+      localStorage.removeItem("authToken");
+      setLoggedIn(false);
+      navigate("/login");
+    } catch (error: any) {
+      console.error("Logout failed:", error.message);
+      alert(error.message); 
+    }
   };
 
   useEffect(() => {
-    if (!loggedIn) navigate('/login');
+    if (!loggedIn) navigate("/login");
   }, [loggedIn, navigate]);
 
   return (
     <div className="page">
-      <NavBar />
+      {loggedIn && <NavBar onLogout={handleLogout} />}
       <div className="page-wrapper">
         <div className="page-body mt-0">
           <Routes>
