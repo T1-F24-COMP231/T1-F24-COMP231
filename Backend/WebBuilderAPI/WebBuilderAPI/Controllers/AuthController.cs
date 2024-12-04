@@ -51,7 +51,8 @@ namespace WebBuilderAPI.Controllers
                     RefreshToken = refreshToken,
                     userResult.FirstName,
                     userResult.LastName,
-                    userResult.Email
+                    userResult.Email,
+                    userResult.IsAdmin
                 });
             }
             catch (Exception ex)
@@ -81,7 +82,8 @@ namespace WebBuilderAPI.Controllers
                     RefreshToken = refreshToken,
                     userResult.FirstName,
                     userResult.LastName,
-                    userResult.Email
+                    userResult.Email,
+                    userResult.IsAdmin
                 });
             }
             catch (Exception ex)
