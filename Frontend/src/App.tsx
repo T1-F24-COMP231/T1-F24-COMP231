@@ -1,61 +1,117 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
-import UserForm from './components/UserForm';
-import WebsiteManagementDashboard from './components/management-dashboard/WebsiteManagementDashboard';
-import WebsiteDetails from './components/management-dashboard/WebsiteDetails'; // Import WebsiteDetails
 import WebsiteBuilder from './components/WebsiteBuilder';
 import UserListPage from './components/admin/UserListPage';
 import SystemMonitorPage from './components/admin/SystemMonitorPage';
 import ProfilePage from './components/ProfilePage';
 import WebsiteStatusPage from './components/WebsiteStatusPage';
-import './styles/App.css';
+import AdminLogin from './components/admin/AdminLogin';
+import CustomerLogin from './components/customer/CustomerLogin';
+import WebsiteManagementDashboard from './components/management-dashboard/WebsiteManagementDashboard';
+import WebsiteDetails from './components/management-dashboard/WebsiteDetails';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import AdminLogin from './components/admin/AdminLogin';
 import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
-
 import './styles/App.css';
+import { useAuth } from './context/AuthContext';
 
 const App: React.FC = () => {
-  const handleUserFormSubmit = (user: {
-    name: string;
-    email: string;
-    role: string;
-    id?: number;
-  }) => {
-    console.log('User submitted:', user);
-    // You can send this data to a backend or use it elsewhere in your app
+  const { token, isAdmin, logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    if (isAdmin) {
+      window.location.href = '/admin/login';
+    } else {
+      window.location.href = '/login';
+    }
   };
 
   return (
-    <>
-      <div className="page">
-        <NavBar />
-        <div className="page-wrapper">
-          <div className="page-body mt-0">
-            <Routes>
-              <Route path="/" element={<AdminLogin />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/website-builder" element={<WebsiteBuilder />} />
-              <Route path="/users" element={<UserListPage />} />
-              <Route path="/system-monitor" element={<SystemMonitorPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/website-status" element={<WebsiteStatusPage />} />
-              {/* New Routes */}
-              <Route
-                path="/management-dashboard"
-                element={<WebsiteManagementDashboard />}
-              />
-              <Route path="/website/:id" element={<WebsiteDetails />} />
-              {/* Added route for backup management */}
-              <Route path="/backup-management" element={<BackupManagement />} />
-            </Routes>
-          </div>
-          <Footer />
+    <div className="page">
+      {token && <NavBar onLogout={handleLogout} />}
+      <div className="page-wrapper">
+        <div className="page-body mt-0">
+          <Routes>
+            Base Route: Redirect based on login status
+            <Route
+              path="/"
+              element={
+                <Navigate to={token ? '/dashboard' : '/login'} replace />
+              }
+            />
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/login" element={<CustomerLogin />} />
+            <Route
+              path="/dashboard"
+              element={token ? <Dashboard /> : <Navigate to="/login" replace />}
+            />
+            <Route
+              path="/website-builder"
+              element={
+                token ? <WebsiteBuilder /> : <Navigate to="/login" replace />
+              }
+            />
+            <Route
+              path="/users"
+              element={
+                token ? <UserListPage /> : <Navigate to="/login" replace />
+              }
+            />
+            <Route
+              path="/system-monitor"
+              element={
+                token ? <SystemMonitorPage /> : <Navigate to="/login" replace />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                token ? <ProfilePage /> : <Navigate to="/login" replace />
+              }
+            />
+            <Route
+              path="/website-status"
+              element={
+                token ? <WebsiteStatusPage /> : <Navigate to="/login" replace />
+              }
+            />
+            <Route
+              path="/management-dashboard"
+              element={
+                token ? (
+                  <WebsiteManagementDashboard />
+                ) : (
+                  <Navigate to="/login" replace />
+                )
+              }
+            />
+            <Route
+              path="/website/:id"
+              element={
+                token ? <WebsiteDetails /> : <Navigate to="/login" replace />
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Navigate to={token ? '/dashboard' : '/login'} replace />
+              }
+            />
+            {/* New Routes */}
+            <Route
+              path="/management-dashboard"
+              element={<WebsiteManagementDashboard />}
+            />
+            <Route path="/website/:id" element={<WebsiteDetails />} />
+            {/* Added route for backup management */}
+            <Route path="/backup-management" element={<BackupManagement />} />
+          </Routes>
         </div>
+        <Footer />
       </div>
-    </>
+    </div>
   );
 };
 

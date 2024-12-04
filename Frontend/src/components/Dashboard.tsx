@@ -39,70 +39,69 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    
-    <div style={{ position: 'relative', minHeight: '100vh' }}>
-      <div className="page-header d-print-none">
+    <>
+      <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <div className="page-header d-print-none">
           <div className="container-xl">
             <div className="row g-2 align-items-center">
               <div className="col">
-                <h2 className="page-title">
-                  Dashboard
-                </h2>
+                <h2 className="page-title">Dashboard</h2>
               </div>
             </div>
           </div>
         </div>
-      <button
-        onClick={handleCreateWebsite}
-        style={{
-          position: 'fixed',
-          bottom: '30px',
-          right: '20px',
-          backgroundColor: '#443a3c',
-          color: 'white',
-          border: 'none',
-          borderRadius: '50%',
-          width: '60px',
-          height: '60px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          fontSize: '24px',
-          cursor: 'pointer',
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-        }}
-        title="Create New Website"
-      >
-        <span className="color-primary">+</span>
-      </button>
+        <button
+          onClick={handleCreateWebsite}
+          style={{
+            position: 'fixed',
+            bottom: '30px',
+            right: '20px',
+            backgroundColor: '#443a3c',
+            color: 'white',
+            border: 'none',
+            borderRadius: '50%',
+            width: '60px',
+            height: '60px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '24px',
+            cursor: 'pointer',
+            boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
+          }}
+          title="Create New Website"
+        >
+          <span className="color-primary">+</span>
+        </button>
 
-      <Modal show={showModal} onHide={handleCloseModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Create New Website</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form.Group>
-            <Form.Label className='required'>Website Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter website name"
-              value={websiteName}
-              maxLength={20}
-              onChange={(e) => setWebsiteName(e.target.value)}
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSaveWebsite}>
-            Save
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
+        <Modal show={showModal} onHide={handleCloseModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Create New Website</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {error && <Alert variant="danger">{error}</Alert>}
+            <Form.Group>
+              <Form.Label className="required">Website Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter website name"
+                value={websiteName}
+                maxLength={20}
+                onChange={(e) => setWebsiteName(e.target.value)}
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleSaveWebsite}>
+              Save
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    </>
   );
 };
 

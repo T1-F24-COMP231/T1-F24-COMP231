@@ -1,9 +1,11 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
+interface NavBarProps {
+  onLogout: () => void;
+}
 
-const NavBar: React.FC = () => {
+const NavBar: React.FC<NavBarProps> = ({ onLogout }) => {
   const location = useLocation();
-
   return (
     <>
       <header className="navbar navbar-expand-md d-print-none ">
@@ -73,6 +75,11 @@ const NavBar: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Logout Button */}
+          <button className="btn btn-outline-primary ms-3" onClick={onLogout}>
+            Logout
+          </button>
         </div>
       </header>
 
