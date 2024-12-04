@@ -13,7 +13,7 @@ import './styles/App.css';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import AdminLogin from './components/admin/AdminLogin';
-import BackupManagement from './components/backup-management/BackupManagement'; // Import BackupManagement component
+import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
 
 import './styles/App.css';
 
