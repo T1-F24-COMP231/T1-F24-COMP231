@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
+import WebsiteManagementDashboard from './components/management-dashboard/WebsiteManagementDashboard';
+import WebsiteDetails from './components/management-dashboard/WebsiteDetails';
 import WebsiteBuilder from './components/WebsiteBuilder';
 import UserListPage from './components/admin/UserListPage';
 import SystemMonitorPage from './components/admin/SystemMonitorPage';
 import ProfilePage from './components/ProfilePage';
 import WebsiteStatusPage from './components/WebsiteStatusPage';
-import './styles/App.css';
-import Footer from './components/Footer';
 import AdminLogin from './components/admin/AdminLogin';
+import Footer from './components/Footer';
+import NavBar from './components/NavBar';
+import './styles/App.css';
 
 // Mock authentication function (replace with actual backend logic)
 const isAuthenticated = () => {
@@ -42,16 +45,18 @@ const App: React.FC = () => {
 
   return (
     <div className="page">
-   
+      <NavBar />
       <div className="page-wrapper">
         <div className="page-body mt-0">
           <Routes>
+            {/* Login Route */}
             <Route path="/login" element={<AdminLogin onLogin={handleLogin} />} />
+
+            {/* Protected Routes */}
             <Route
               path="/dashboard"
               element={
                 <ProtectedRoute>
-                  
                   <Dashboard />
                 </ProtectedRoute>
               }
@@ -96,6 +101,23 @@ const App: React.FC = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/management-dashboard"
+              element={
+                <ProtectedRoute>
+                  <WebsiteManagementDashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/website/:id"
+              element={
+                <ProtectedRoute>
+                  <WebsiteDetails />
+                </ProtectedRoute>
+              }
+            />
+
             {/* Default Route */}
             <Route
               path="*"
