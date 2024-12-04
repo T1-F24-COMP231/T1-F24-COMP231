@@ -76,13 +76,10 @@ const NavBar: React.FC<NavBarProps> = ({ onLogout }) => {
             </div>
           </div>
 
-      {/* Logout Button */}
-      <button
-              className="btn btn-outline-primary ms-3"
-              onClick={onLogout}
-            >
-              Logout
-            </button>
+          {/* Logout Button */}
+          <button className="btn btn-outline-primary ms-3" onClick={onLogout}>
+            Logout
+          </button>
         </div>
       </header>
 

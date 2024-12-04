@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Form, Button, Container, Alert } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Form, Button, Container, Alert } from 'react-bootstrap';
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => void;
@@ -7,17 +7,17 @@ interface LoginFormProps {
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, title }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
+    setError('');
     try {
       await onSubmit(email, password);
     } catch (err: any) {
-      setError(err.message || "An error occurred during login.");
+      setError(err.message || 'An error occurred during login.');
     }
   };
 

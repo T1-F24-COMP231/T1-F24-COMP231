@@ -1,18 +1,18 @@
-import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
-import WebsiteBuilder from "./components/WebsiteBuilder";
-import UserListPage from "./components/admin/UserListPage";
-import SystemMonitorPage from "./components/admin/SystemMonitorPage";
-import ProfilePage from "./components/ProfilePage";
-import WebsiteStatusPage from "./components/WebsiteStatusPage";
-import AdminLogin from "./components/admin/AdminLogin";
-import CustomerLogin from "./components/customer/CustomerLogin";
-import WebsiteManagementDashboard from "./components/management-dashboard/WebsiteManagementDashboard";
-import WebsiteDetails from "./components/management-dashboard/WebsiteDetails";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import { useAuth } from "./context/AuthContext";
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import WebsiteBuilder from './components/WebsiteBuilder';
+import UserListPage from './components/admin/UserListPage';
+import SystemMonitorPage from './components/admin/SystemMonitorPage';
+import ProfilePage from './components/ProfilePage';
+import WebsiteStatusPage from './components/WebsiteStatusPage';
+import AdminLogin from './components/admin/AdminLogin';
+import CustomerLogin from './components/customer/CustomerLogin';
+import WebsiteManagementDashboard from './components/management-dashboard/WebsiteManagementDashboard';
+import WebsiteDetails from './components/management-dashboard/WebsiteDetails';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import { useAuth } from './context/AuthContext';
 
 const App: React.FC = () => {
   const { token, isAdmin, logout } = useAuth();
@@ -20,9 +20,9 @@ const App: React.FC = () => {
   const handleLogout = () => {
     logout();
     if (isAdmin) {
-      window.location.href = "/admin/login";
+      window.location.href = '/admin/login';
     } else {
-      window.location.href = "/login";
+      window.location.href = '/login';
     }
   };
 
@@ -35,18 +35,15 @@ const App: React.FC = () => {
             Base Route: Redirect based on login status
             <Route
               path="/"
-              element={<Navigate to={token ? "/dashboard" : "/login"} replace />}
+              element={
+                <Navigate to={token ? '/dashboard' : '/login'} replace />
+              }
             />
-
             <Route path="/admin/login" element={<AdminLogin />} />
-
             <Route path="/login" element={<CustomerLogin />} />
-
             <Route
               path="/dashboard"
-              element={
-                token ? <Dashboard /> : <Navigate to="/login" replace />
-              }
+              element={token ? <Dashboard /> : <Navigate to="/login" replace />}
             />
             <Route
               path="/website-builder"
@@ -94,10 +91,11 @@ const App: React.FC = () => {
                 token ? <WebsiteDetails /> : <Navigate to="/login" replace />
               }
             />
-
             <Route
               path="*"
-              element={<Navigate to={token ? "/dashboard" : "/login"} replace />}
+              element={
+                <Navigate to={token ? '/dashboard' : '/login'} replace />
+              }
             />
           </Routes>
         </div>
