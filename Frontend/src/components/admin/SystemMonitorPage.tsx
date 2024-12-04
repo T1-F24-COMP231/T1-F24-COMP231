@@ -52,6 +52,7 @@ const SystemMonitorPage: React.FC = () => {
   if (error) return <div>{error}</div>;
 
   return (
+    <>
     <div className={styles.systemMonitorContainer}>
       <h1>System Monitor</h1>
       {stats ? (
@@ -114,6 +115,7 @@ const SystemMonitorPage: React.FC = () => {
         <div>No data available</div>
       )}
     </div>
+    </>
   );
 };
 

@@ -39,7 +39,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    
+<>
     <div style={{ position: 'relative', minHeight: '100vh' }}>
       <div className="page-header d-print-none">
           <div className="container-xl">
@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </div>
+    </div></>
   );
 };
 
