@@ -1,42 +1,43 @@
 import React, { useState } from 'react';
-import '../styles/BackupManagement.css';
 
 const BackupManagement: React.FC = () => {
-  // Sample state for backup details (this would normally come from an API)
   const [backupDetails, setBackupDetails] = useState<any>({
     lastBackupDate: '2024-12-01',
     status: 'Completed',
   });
 
   const handleBackup = () => {
-    // This would trigger the backup process via an API call
     console.log('Starting new backup...');
   };
 
   const handleRestore = () => {
-    // This would trigger the restore process via an API call
     console.log('Restoring from last backup...');
   };
 
   return (
-    <div className="backup-management mt-4">
-      <h1>Backup and Restore System Data</h1>
-
-      <div className="backup-details">
-        <h3>Last Backup Details</h3>
-        <p>
-          <strong>Date:</strong> {backupDetails.lastBackupDate}
-        </p>
-        <p>
-          <strong>Status:</strong> {backupDetails.status}
-        </p>
+    <div className="container mt-4 pt-4">
+      <h2 className="mb-4">Backup and Restore System Data</h2>
+      <div className="card shadow-sm p-4">
+        <h4 className="text-primary">Last Backup Details</h4>
+        <div className="row">
+          <div className="col-md-6">
+            <p>
+              <strong>Date:</strong> {backupDetails.lastBackupDate}
+            </p>
+          </div>
+          <div className="col-md-6">
+            <p>
+              <strong>Status:</strong> {backupDetails.status}
+            </p>
+          </div>
+        </div>
       </div>
 
-      <div className="backup-actions">
-        <button className="btn btn-backup" onClick={handleBackup}>
+      <div className="mt-4 text-center">
+        <button className="btn btn-primary me-3" onClick={handleBackup}>
           Create New Backup
         </button>
-        <button className="btn btn-restore" onClick={handleRestore}>
+        <button className="btn btn-outline-primary" onClick={handleRestore}>
           Restore from Last Backup
         </button>
       </div>

@@ -1,7 +1,9 @@
-// api/profileApi.ts
+const API_BASE_URL =
+  'https://be-webbuilder-cra2hcbuapebdpfp.canadacentral-01.azurewebsites.net';
+
 export const getProfile = async (userId: number) => {
   try {
-    const response = await fetch(`https://localhost:7226/Account/${userId}`);
+    const response = await fetch(`${API_BASE_URL}/Account/${userId}`);
     if (!response.ok) {
       throw new Error('Failed to fetch profile');
     }
@@ -24,16 +26,13 @@ export const updateProfile = async (
   }
 ) => {
   try {
-    const response = await fetch(
-      `https://localhost:7226/Account/update/${userId}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedProfile),
-      }
-    );
+    const response = await fetch(`${API_BASE_URL}/Account/update/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedProfile),
+    });
 
     if (!response.ok) {
       throw new Error('Failed to update profile');

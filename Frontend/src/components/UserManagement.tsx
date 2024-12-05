@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/UserManagement.css';
 import UserForm from './UserForm';
 import EditUserForm from './EditUserForm';
+import Loading from './Loading';
 
 interface User {
   id: number;
@@ -152,64 +153,64 @@ const UserManagement: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return <div>Loading users...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   return (
-    <div className="user-management">
+    <div className="user-management container mt-4">
       <h2>User Management</h2>
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
-              <td>{user.email}</td>
-              <td>
-                <button
-                  className="edit-btn"
-                  onClick={() => handleEditUser(user)} // Edit user action
-                >
-                  Edit
-                </button>
-                <button
-                  className="delete-btn"
-                  onClick={() => handleDeleteUser(user.id)} // Call handleDeleteUser with the user's ID
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {loading ? (
+        <Loading /> // Display the loading spinner
+      ) : error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <>
+          <table className="user-table">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <button
+                      className="edit-btn"
+                      onClick={() => handleEditUser(user)} // Edit user action
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteUser(user.id)} // Call handleDeleteUser with the user's ID
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      <button className="add-user-btn" onClick={handleAddUser}>
-        Add User
-      </button>
+          <button className="add-user-btn" onClick={handleAddUser}>
+            Add User
+          </button>
 
-      {isFormVisible && (
-        <UserForm onSubmit={handleSubmitUser} onCancel={handleCancelForm} />
-      )}
-      {isFormVisible && editingUser && (
-        <EditUserForm
-          user={editingUser}
-          onSubmit={handleEditUserSubmit} // Updated to handleEditUserSubmit
-          onCancel={handleCancelForm}
-        />
+          {isFormVisible && (
+            <UserForm onSubmit={handleSubmitUser} onCancel={handleCancelForm} />
+          )}
+          {isFormVisible && editingUser && (
+            <EditUserForm
+              user={editingUser}
+              onSubmit={handleEditUserSubmit} // Updated to handleEditUserSubmit
+              onCancel={handleCancelForm}
+            />
+          )}
+        </>
       )}
     </div>
   );

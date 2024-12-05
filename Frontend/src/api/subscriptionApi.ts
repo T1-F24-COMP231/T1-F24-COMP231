@@ -1,8 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_BASE_URL = "https://be-webbuilder-cra2hcbuapebdpfp.canadacentral-01.azurewebsites.net/Subscription";
+const API_BASE_URL =
+  'https://be-webbuilder-cra2hcbuapebdpfp.canadacentral-01.azurewebsites.net/Subscription';
 
-const getAuthToken = () => localStorage.getItem("authToken");
+const getAuthToken = () => localStorage.getItem('authToken');
 
 export const getSubscriptionDetails = async () => {
   try {
@@ -12,8 +13,10 @@ export const getSubscriptionDetails = async () => {
       },
     });
     return response.data;
-  } catch (error : any) {
-    throw new Error(error.response?.data?.message || "Failed to fetch subscription details");
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || 'Failed to fetch subscription details'
+    );
   }
 };
 
@@ -29,8 +32,10 @@ export const cancelSubscription = async (userId: number) => {
       }
     );
     return response.data;
-  } catch (error : any) {
-    throw new Error(error.response?.data?.message || "Failed to cancel subscription");
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || 'Failed to cancel subscription'
+    );
   }
 };
 
@@ -46,8 +51,10 @@ export const renewSubscription = async (userId: number) => {
       }
     );
     return response.data;
-  } catch (error : any) {
-    throw new Error(error.response?.data?.message || "Failed to renew subscription");
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || 'Failed to renew subscription'
+    );
   }
 };
 
@@ -59,7 +66,9 @@ export const addBillingDetails = async (billingData: any) => {
       },
     });
     return response.data;
-  } catch (error : any) {
-    throw new Error(error.response?.data?.message || "Failed to add billing details");
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || 'Failed to add billing details'
+    );
   }
 };
