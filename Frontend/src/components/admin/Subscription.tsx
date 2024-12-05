@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Table, Alert, Spinner } from "react-bootstrap";
+import { Button, Card, Table, Alert } from "react-bootstrap";
 import {
   getSubscriptionDetails,
   cancelSubscription,

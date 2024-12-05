@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import WebsiteBuilder from './components/WebsiteBuilder';
-import UserListPage from './components/admin/UserListPage';
 import SystemMonitorPage from './components/admin/SystemMonitorPage';
 import ProfilePage from './components/ProfilePage';
 import WebsiteStatusPage from './components/WebsiteStatusPage';
@@ -15,6 +14,7 @@ import Footer from './components/Footer';
 import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
 import { useAuth } from './context/AuthContext';
 import Subscription from './components/admin/Subscription';
+import UserManagement from './components/UserManagement';
 
 const App: React.FC = () => {
   const { token, isAdmin, logout } = useAuth();
@@ -25,7 +25,7 @@ const App: React.FC = () => {
       window.location.href = '/admin/login';
     } else {
       window.location.href = '/login';
-    }
+   }
   };
 
   const location = useLocation();
@@ -61,7 +61,7 @@ const isLoginPage =
             <Route
               path="/users"
               element={
-                token ? <UserListPage /> : <Navigate to="/login" replace />
+                token ? <UserManagement /> : <Navigate to="/login" replace />
               }
             />
             <Route

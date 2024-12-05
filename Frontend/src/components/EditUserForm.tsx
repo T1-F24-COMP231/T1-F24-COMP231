@@ -1,24 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../styles/UserForm.css';
 
-interface UserFormProps {
+interface EditUserFormProps {
+  user: {
+    id: number;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    isAdmin: boolean;
+  };
   onSubmit: (user: {
+    id: number;
     firstName: string;
     lastName: string;
     email: string;
     password: string;
     isAdmin: boolean;
   }) => void;
-  onCancel: () => void; // New prop to handle cancel
+  onCancel: () => void;
 }
 
-const UserForm: React.FC<UserFormProps> = ({ onSubmit, onCancel }) => {
+const EditUserForm: React.FC<EditUserFormProps> = ({
+  user,
+  onSubmit,
+  onCancel,
+}) => {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    isAdmin: false,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    password: user.password,
+    isAdmin: user.isAdmin,
   });
 
   const [errors, setErrors] = useState<{
@@ -66,28 +79,14 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, onCancel }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      onSubmit(formData);
+      onSubmit({ ...formData, id: user.id });
     }
   };
-
-  // Close form when clicking outside
-  const handleOutsideClick = (e: React.MouseEvent) => {
-    if ((e.target as HTMLElement).classList.contains('user-form-container')) {
-      onCancel();
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('click', handleOutsideClick);
-    return () => {
-      window.removeEventListener('click', handleOutsideClick);
-    };
-  }, []);
 
   return (
     <div className="user-form-container">
       <form className="user-form" onSubmit={handleSubmit}>
-        <h3>Create User</h3>
+        <h3>Edit User</h3>
 
         <div className="form-group">
           <label htmlFor="firstName">First Name</label>
@@ -162,7 +161,7 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, onCancel }) => {
 
         <div className="buttons-container">
           <button type="submit" className="submit-button">
-            Create User
+            Save Changes
           </button>
           <button type="button" className="cancel-button" onClick={onCancel}>
             Cancel
@@ -173,4 +172,4 @@ const UserForm: React.FC<UserFormProps> = ({ onSubmit, onCancel }) => {
   );
 };
 
-export default UserForm;
+export default EditUserForm;
