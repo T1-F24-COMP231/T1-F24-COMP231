@@ -1,10 +1,31 @@
+.user-form-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 .user-form {
+  background-color: #fff;
+  padding: 30px 40px;
+  width: 90%;
   max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.user-form h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
 }
 
 .form-group {
@@ -12,37 +33,51 @@
 }
 
 .form-group label {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
   display: block;
-}
-
-.form-group .input-error {
-  border-color: #e74c3c;
-}
-
-.form-group .error-message {
-  color: #e74c3c;
   font-size: 14px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.form-group input[type='text'],
+.form-group input[type='email'],
+.form-group input[type='password'] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input[type='text']:focus,
+.form-group input[type='email']:focus,
+.form-group input[type='password']:focus {
+  border-color: #007bff;
+}
+
+.error-message {
+  color: #d9534f;
+  font-size: 12px;
   margin-top: 5px;
 }
 
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
+.form-group input[type='checkbox'] {
+  margin-right: 8px;
 }
 
-.submit-button {
-  width: 100%;
-  padding: 12px;
+.buttons-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submit-button,
+.cancel-button {
+  padding: 10px 20px;
   font-size: 16px;
-  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -50,18 +85,25 @@
   transition: background-color 0.3s;
 }
 
+.submit-button {
+  background-color: #28a745;
+}
+
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: #218838;
+}
+
+.cancel-button {
+  background-color: #d9534f;
+}
+
+.cancel-button:hover {
+  background-color: #c9302c;
 }
 
 @media (max-width: 768px) {
   .user-form {
-    padding: 15px;
-  }
-
-  .form-group input,
-  .form-group select,
-  .submit-button {
-    font-size: 14px;
+    padding: 20px;
+    width: 95%;
   }
 }

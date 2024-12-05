@@ -14,6 +14,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
 import { useAuth } from './context/AuthContext';
+import UserManagement from './components/UserManagement';
 
 const App: React.FC = () => {
   const { token, isAdmin, logout } = useAuth();
@@ -55,7 +56,7 @@ const App: React.FC = () => {
             <Route
               path="/users"
               element={
-                token ? <UserListPage /> : <Navigate to="/login" replace />
+                token ? <UserManagement /> : <Navigate to="/login" replace />
               }
             />
             <Route

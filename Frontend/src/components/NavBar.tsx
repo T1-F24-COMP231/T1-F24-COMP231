@@ -118,37 +118,43 @@ const NavBar: React.FC<NavBarProps> = ({ onLogout, isAdmin }) => {
                         </span>
                       </Link>
                     </li>
-                    <li
-                      className={`nav-item mx-1 ${
-                        location.pathname === '/users' ? 'active' : ''
-                      }`}
-                    >
-                      <Link className="nav-link " to="/users">
-                        <span className="nav-link-icon d-md-none d-lg-inline-block">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="icon icon-tabler icons-tabler-outline icon-tabler-list"
-                          >
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M9 6l11 0" />
-                            <path d="M9 12l11 0" />
-                            <path d="M9 18l11 0" />
-                            <path d="M5 6l0 .01" />
-                            <path d="M5 12l0 .01" />
-                            <path d="M5 18l0 .01" />
-                          </svg>
-                        </span>
-                        <span className="nav-link-title">User List</span>
-                      </Link>
-                    </li>
+                    {isAdmin && (
+                      <li
+                        className={`nav-item mx-1 ${
+                          location.pathname === '/users' ? 'active' : ''
+                        }`}
+                      >
+                        <Link className="nav-link " to="/users">
+                          <span className="nav-link-icon d-md-none d-lg-inline-block">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="icon icon-tabler icons-tabler-outline icon-tabler-list"
+                            >
+                              <path
+                                stroke="none"
+                                d="M0 0h24v24H0z"
+                                fill="none"
+                              />
+                              <path d="M9 6l11 0" />
+                              <path d="M9 12l11 0" />
+                              <path d="M9 18l11 0" />
+                              <path d="M5 6l0 .01" />
+                              <path d="M5 12l0 .01" />
+                              <path d="M5 18l0 .01" />
+                            </svg>
+                          </span>
+                          <span className="nav-link-title">User List</span>
+                        </Link>
+                      </li>
+                    )}
                     <li
                       className={`nav-item mx-1 ${
                         location.pathname === '/system-monitor' ? 'active' : ''
