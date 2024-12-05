@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchSystemStats = async () => {
   try {
     const response = await axios.get(
-      'https://localhost:7226/api/ServerHealth/stats'
+      'https://be-webbuilder-cra2hcbuapebdpfp.canadacentral-01.azurewebsites.net/api/ServerHealth/stats'
     ); // Make sure this endpoint matches your ASP.NET API route
     return response.data;
   } catch (error) {

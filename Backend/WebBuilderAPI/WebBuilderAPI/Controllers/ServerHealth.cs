@@ -11,7 +11,7 @@ namespace WebBuilderAPI.Controllers
     public class ServerHealthController : ControllerBase
     {
         [HttpGet("stats")]
-        [Authorize(Policy = "AdminOnly")]
+       // [Authorize(Policy = "AdminOnly")]
         public IActionResult GetServerHealth()
         {
             var healthStats = new

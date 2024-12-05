@@ -21,7 +21,7 @@ namespace WebBuilderAPI.Controllers
         }
 
         [HttpGet("latest")]
-        [Authorize(Policy = "AdminOnly")]
+      //  [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> GetLatestBackup()
         {
             try
@@ -51,7 +51,7 @@ namespace WebBuilderAPI.Controllers
         }
 
         [HttpPost("backup")]
-        [Authorize(Policy = "AdminOnly")]
+       // [Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> CreateBackup()
         {
             try
@@ -66,7 +66,7 @@ namespace WebBuilderAPI.Controllers
         }
 
         [HttpPost("restore")]
-        [Authorize(Policy = "AdminOnly")]
+        //[Authorize(Policy = "AdminOnly")]
         public async Task<IActionResult> RestoreBackup([FromBody] RestoreRequest request)
         {
             try

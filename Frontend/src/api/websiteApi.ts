@@ -13,7 +13,7 @@ export interface Website {
   deploymentUrl: string | null;
 }
 
-const API_URL = 'https://localhost:7226/Layout';
+const API_URL = 'https://be-webbuilder-cra2hcbuapebdpfp.canadacentral-01.azurewebsites.net/Layout';
 
 // Fetch websites for a specific user
 export const fetchWebsites = async (userId: number): Promise<Website[]> => {
