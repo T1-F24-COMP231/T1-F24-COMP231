@@ -1,0 +1,107 @@
+.client-backup {
+  max-width: 90%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  width: 100%;
+}
+
+.client-backup h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.backup-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.backup-button:hover {
+  background-color: #45a049;
+}
+
+.backup-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
+.backup-table th,
+.backup-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.backup-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.backup-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.backup-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.backup-table .completed {
+  color: green;
+  font-weight: bold;
+}
+
+.backup-table .in-progress {
+  color: orange;
+  font-weight: bold;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .backup-table {
+    font-size: 0.8em;
+  }
+
+  .backup-table th,
+  .backup-table td {
+    padding: 6px;
+  }
+
+  .backup-button {
+    font-size: 0.9em;
+    padding: 8px 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .backup-table,
+  .backup-button {
+    width: 100%;
+  }
+
+  .backup-table th,
+  .backup-table td {
+    padding: 4px;
+  }
+
+  .backup-button {
+    font-size: 0.8em;
+    padding: 6px 10px;
+  }
+
+  .client-backup h2 {
+    font-size: 1.5em;
+  }
+}
