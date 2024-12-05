@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Button, Card, Table, Alert } from "react-bootstrap";
+import React, { useState, useEffect } from 'react';
+import { Button, Card, Table, Alert } from 'react-bootstrap';
 import {
   getSubscriptionDetails,
   cancelSubscription,
   renewSubscription,
-} from "../../api/subscriptionApi";
-import { useAuth } from "../../context/AuthContext";
-import Loading from "../Loading";
+} from '../../api/subscriptionApi';
+import { useAuth } from '../../context/AuthContext';
+import Loading from '../Loading';
 
 const Subscription: React.FC = () => {
   const { isAdmin } = useAuth(); // Determine if the user is Admin
   const [subscriptions, setSubscriptions] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     fetchSubscriptionDetails();
@@ -25,7 +25,7 @@ const Subscription: React.FC = () => {
       const data = await getSubscriptionDetails();
       setSubscriptions(Array.isArray(data) ? data : [data]); // Support for both single and multiple subscriptions
     } catch (err: any) {
-      setError(err.message || "Failed to fetch subscription details");
+      setError(err.message || 'Failed to fetch subscription details');
     } finally {
       setLoading(false);
     }
@@ -35,10 +35,10 @@ const Subscription: React.FC = () => {
     setLoading(true);
     try {
       await cancelSubscription(customerId);
-      setSuccess("Subscription canceled successfully");
+      setSuccess('Subscription canceled successfully');
       fetchSubscriptionDetails();
     } catch (err: any) {
-      setError(err.message || "Failed to cancel subscription");
+      setError(err.message || 'Failed to cancel subscription');
     } finally {
       setLoading(false);
     }
@@ -48,10 +48,10 @@ const Subscription: React.FC = () => {
     setLoading(true);
     try {
       await renewSubscription(customerId);
-      setSuccess("Subscription renewed successfully");
+      setSuccess('Subscription renewed successfully');
       fetchSubscriptionDetails();
     } catch (err: any) {
-      setError(err.message || "Failed to renew subscription");
+      setError(err.message || 'Failed to renew subscription');
     } finally {
       setLoading(false);
     }
@@ -59,7 +59,11 @@ const Subscription: React.FC = () => {
 
   return (
     <div className="container mt-4 pt-4">
-      <h2>{isAdmin ? "Admin Subscription Management" : "Your Subscription Details"}</h2>
+      <h2>
+        {isAdmin
+          ? 'Admin Subscription Management'
+          : 'Your Subscription Details'}
+      </h2>
       {loading && <Loading />}
       {error && <Alert variant="danger">{error}</Alert>}
       {success && <Alert variant="success">{success}</Alert>}
@@ -70,11 +74,11 @@ const Subscription: React.FC = () => {
           <Card.Body>
             <h5>Subscription Information</h5>
             <p>
-              <strong>Charge Date:</strong>{" "}
+              <strong>Charge Date:</strong>{' '}
               {new Date(subscriptions[0].chargeDate).toLocaleString()}
             </p>
             <p>
-              <strong>Expiry Date:</strong>{" "}
+              <strong>Expiry Date:</strong>{' '}
               {new Date(subscriptions[0].expiryDate).toLocaleString()}
             </p>
             <h5 className="mt-4">Billing Information</h5>
@@ -82,20 +86,29 @@ const Subscription: React.FC = () => {
               <strong>Name:</strong> {subscriptions[0].billingInfo.name}
             </p>
             <p>
-              <strong>Card Number:</strong> **** **** ****{" "}
+              <strong>Card Number:</strong> **** **** ****{' '}
               {subscriptions[0].billingInfo.cardNumber.slice(-4)}
             </p>
             <p>
-              <strong>Name on Card:</strong> {subscriptions[0].billingInfo.nameOnCard}
+              <strong>Name on Card:</strong>{' '}
+              {subscriptions[0].billingInfo.nameOnCard}
             </p>
             <p>
-              <strong>Postal Code:</strong> {subscriptions[0].billingInfo.postalCode}
+              <strong>Postal Code:</strong>{' '}
+              {subscriptions[0].billingInfo.postalCode}
             </p>
             <div className="mt-3">
-              <Button variant="danger" onClick={() => handleCancel(subscriptions[0].customerId)}>
+              <Button
+                variant="danger"
+                onClick={() => handleCancel(subscriptions[0].customerId)}
+              >
                 Cancel Subscription
               </Button>
-              <Button variant="success" onClick={() => handleRenew(subscriptions[0].customerId)} className="ms-2">
+              <Button
+                variant="success"
+                onClick={() => handleRenew(subscriptions[0].customerId)}
+                className="ms-2"
+              >
                 Renew Subscription
               </Button>
             </div>
@@ -121,7 +134,7 @@ const Subscription: React.FC = () => {
               <tr key={subscription.id}>
                 <td>{subscription.id}</td>
                 <td>{subscription.customerId}</td>
-                <td>{subscription.billingId || "N/A"}</td>
+                <td>{subscription.billingId || 'N/A'}</td>
                 <td>{new Date(subscription.chargeDate).toLocaleString()}</td>
                 <td>{new Date(subscription.expiryDate).toLocaleString()}</td>
                 <td>

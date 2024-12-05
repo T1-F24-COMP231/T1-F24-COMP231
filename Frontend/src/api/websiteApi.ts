@@ -1,4 +1,3 @@
-// api.ts
 export interface Website {
   id: number;
   userId: number;
@@ -13,12 +12,12 @@ export interface Website {
   deploymentUrl: string | null;
 }
 
-const API_URL = 'https://localhost:7226/Layout';
+const API_BASE_URL =
+  'https://be-webbuilder-cra2hcbuapebdpfp.canadacentral-01.azurewebsites.net/Layout';
 
 // Fetch websites for a specific user
 export const fetchWebsites = async (userId: number): Promise<Website[]> => {
-  const response = await fetch(`${API_URL}/User/${userId}`);
-  console.log(response);
+  const response = await fetch(`${API_BASE_URL}/User/${userId}`);
   if (!response.ok) {
     throw new Error('Error fetching websites.');
   }
@@ -26,12 +25,11 @@ export const fetchWebsites = async (userId: number): Promise<Website[]> => {
 };
 
 // Update website (publish/unpublish)
-// api.ts
 export const updateWebsite = async (
   websiteId: number,
   deploymentUrl: string | null
 ): Promise<void> => {
-  const response = await fetch(`${API_URL}/${websiteId}/Publish`, {
+  const response = await fetch(`${API_BASE_URL}/${websiteId}/Publish`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -45,7 +43,7 @@ export const updateWebsite = async (
 
 // Delete a website
 export const deleteWebsite = async (websiteId: number): Promise<void> => {
-  const response = await fetch(`${API_URL}/${websiteId}`, {
+  const response = await fetch(`${API_BASE_URL}/${websiteId}`, {
     method: 'DELETE',
   });
   if (!response.ok) {

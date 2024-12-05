@@ -11,10 +11,11 @@ import WebsiteManagementDashboard from './components/management-dashboard/Websit
 import WebsiteDetails from './components/management-dashboard/WebsiteDetails';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
-import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
+import BackupManagement from './components/BackupManagement';
 import { useAuth } from './context/AuthContext';
 import Subscription from './components/admin/Subscription';
 import UserManagement from './components/UserManagement';
+import ActivityLogs from './components/admin/ActivityLogs';
 
 const App: React.FC = () => {
   const { token, isAdmin, logout } = useAuth();
@@ -25,19 +26,21 @@ const App: React.FC = () => {
       window.location.href = '/admin/login';
     } else {
       window.location.href = '/login';
-   }
+    }
   };
 
   const location = useLocation();
 
-const isLoginPage =
-  location.pathname === "/login" || location.pathname === "/admin/login";
+  const isLoginPage =
+    location.pathname === '/login' || location.pathname === '/admin/login';
 
   return (
     <div className="page">
       {token && <NavBar onLogout={handleLogout} isAdmin={isAdmin} />}
       <div className="page-wrapper min-height-100">
-        <div  className={`page-body mt-0 ${isLoginPage ? "d-flex justify-content-center" : ""}`}>
+        <div
+          className={`page-body mt-0 ${isLoginPage ? 'd-flex justify-content-center' : ''}`}
+        >
           <Routes>
             {/* Base Route: Redirect based on login status */}
             <Route
@@ -93,6 +96,17 @@ const isLoginPage =
               }
             />
             <Route
+              path="/activity-logs"
+              element={
+                token && isAdmin ? (
+                  <ActivityLogs />
+                ) : (
+                  <Navigate to={isAdmin ? '/admin/login' : '/login'} replace />
+                )
+              }
+            />
+
+            <Route
               path="/website/:id"
               element={
                 token ? <WebsiteDetails /> : <Navigate to="/login" replace />
@@ -105,9 +119,11 @@ const isLoginPage =
               }
             />
             <Route
-    path="/subscription"
-    element={isAdmin ? <Subscription /> : <Navigate to="/login" replace />}
-  />
+              path="/subscription"
+              element={
+                isAdmin ? <Subscription /> : <Navigate to="/login" replace />
+              }
+            />
             <Route
               path="/backup-management"
               element={

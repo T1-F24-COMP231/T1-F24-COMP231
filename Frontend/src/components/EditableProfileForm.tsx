@@ -13,24 +13,25 @@ interface EditableProfileFormProps {
   profile: Profile;
   onSave: (updatedProfile: Profile) => void;
   clearOldPassword: boolean;
+  toggleEdit: any;
 }
 
 const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
   profile,
   onSave,
   clearOldPassword,
+  toggleEdit,
 }) => {
   const [formData, setFormData] = useState<Profile>(profile);
 
   useEffect(() => {
-    // Ensure the form does not pre-fill the old password field
     if (clearOldPassword) {
       setFormData((prevState) => ({
         ...prevState,
-        password: '', // Clear old password in the form to prevent it from being pre-filled
+        password: '', 
       }));
     } else {
-      setFormData(profile); // Reset to original profile data
+      setFormData(profile); 
     }
   }, [profile, clearOldPassword]);
 
@@ -43,11 +44,15 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
   };
 
   const handleSave = () => {
-    onSave(formData); // Pass updated profile data to onSave
+    onSave(formData); 
   };
 
   const handleDiscard = () => {
-    setFormData(profile); // Reset to initial profile data
+    setFormData(profile); 
+  };
+
+  const handleToggleEdit = () => {
+    toggleEdit();
   };
 
   return (
@@ -90,7 +95,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="password"
           name="password"
-          value={formData.password || ''} // Ensure the field is empty when the form loads
+          value={formData.password || ''} 
           onChange={handleChange}
         />
       </div>
@@ -100,7 +105,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="newPassword"
           name="newPassword"
-          value={formData.newPassword || ''} // Default value from the profile
+          value={formData.newPassword || ''} 
           onChange={handleChange}
         />
       </div>
@@ -121,6 +126,9 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
         </button>
         <button type="button" className="discard-btn" onClick={handleDiscard}>
           Discard Changes
+        </button>
+        <button className="btn btn-secondary" onClick={handleToggleEdit}>
+          Cancel Edit
         </button>
       </div>
     </form>

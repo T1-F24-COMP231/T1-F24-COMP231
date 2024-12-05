@@ -18,12 +18,8 @@ body {
 
 /* Profile Page Section (Left side) */
 .profile-page-container {
-  padding: 20px;
-  background-color: #f9f9f9;
   display: flex;
   flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center items horizontally */
-  height: 100vh; /* Make the container fill the full viewport height */
 }
 .profile-page-container h1 {
   font-size: 2.5em;
