@@ -1,0 +1,56 @@
+.backup-management {
+  padding: 20px;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.backup-details {
+  background-color: #ffffff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.backup-details h3 {
+  margin-bottom: 10px;
+}
+
+.backup-details p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.backup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.backup-actions .btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.backup-actions .btn-backup {
+  background-color: #28a745;
+  color: white;
+}
+
+.backup-actions .btn-backup:hover {
+  background-color: #218838;
+}
+
+.backup-actions .btn-restore {
+  background-color: #007bff;
+  color: white;
+}
+
+.backup-actions .btn-restore:hover {
+  background-color: #0056b3;
+}

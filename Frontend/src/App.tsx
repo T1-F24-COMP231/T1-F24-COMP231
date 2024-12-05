@@ -12,6 +12,7 @@ import WebsiteManagementDashboard from './components/management-dashboard/Websit
 import WebsiteDetails from './components/management-dashboard/WebsiteDetails';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
 import { useAuth } from './context/AuthContext';
 
 const App: React.FC = () => {
@@ -28,11 +29,11 @@ const App: React.FC = () => {
 
   return (
     <div className="page">
-      {token && <NavBar onLogout={handleLogout} />}
+      {token && <NavBar onLogout={handleLogout} isAdmin={isAdmin} />}
       <div className="page-wrapper">
         <div className="page-body mt-0">
           <Routes>
-            Base Route: Redirect based on login status
+            {/* Base Route: Redirect based on login status */}
             <Route
               path="/"
               element={
@@ -95,6 +96,16 @@ const App: React.FC = () => {
               path="*"
               element={
                 <Navigate to={token ? '/dashboard' : '/login'} replace />
+              }
+            />
+            <Route
+              path="/backup-management"
+              element={
+                token ? (
+                  <BackupManagement />
+                ) : (
+                  <Navigate to="/admin/login" replace />
+                )
               }
             />
           </Routes>
