@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import WebsiteBuilder from './components/WebsiteBuilder';
 import UserListPage from './components/admin/UserListPage';
@@ -14,6 +14,7 @@ import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import BackupManagement from './components/BackupManagement'; // Import BackupManagement component
 import { useAuth } from './context/AuthContext';
+import Subscription from './components/admin/Subscription';
 
 const App: React.FC = () => {
   const { token, isAdmin, logout } = useAuth();
@@ -27,11 +28,16 @@ const App: React.FC = () => {
     }
   };
 
+  const location = useLocation();
+
+const isLoginPage =
+  location.pathname === "/login" || location.pathname === "/admin/login";
+
   return (
     <div className="page">
       {token && <NavBar onLogout={handleLogout} isAdmin={isAdmin} />}
-      <div className="page-wrapper">
-        <div className="page-body mt-0">
+      <div className="page-wrapper min-height-100">
+        <div  className={`page-body mt-0 ${isLoginPage ? "d-flex justify-content-center" : ""}`}>
           <Routes>
             {/* Base Route: Redirect based on login status */}
             <Route
@@ -98,6 +104,10 @@ const App: React.FC = () => {
                 <Navigate to={token ? '/dashboard' : '/login'} replace />
               }
             />
+            <Route
+    path="/subscription"
+    element={isAdmin ? <Subscription /> : <Navigate to="/login" replace />}
+  />
             <Route
               path="/backup-management"
               element={

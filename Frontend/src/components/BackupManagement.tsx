@@ -19,7 +19,7 @@ const BackupManagement: React.FC = () => {
   };
 
   return (
-    <div className="backup-management">
+    <div className="backup-management mt-4">
       <h1>Backup and Restore System Data</h1>
 
       <div className="backup-details">
