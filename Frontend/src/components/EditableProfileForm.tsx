@@ -28,10 +28,10 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
     if (clearOldPassword) {
       setFormData((prevState) => ({
         ...prevState,
-        password: '', 
+        password: '',
       }));
     } else {
-      setFormData(profile); 
+      setFormData(profile);
     }
   }, [profile, clearOldPassword]);
 
@@ -44,11 +44,11 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
   };
 
   const handleSave = () => {
-    onSave(formData); 
+    onSave(formData);
   };
 
   const handleDiscard = () => {
-    setFormData(profile); 
+    setFormData(profile);
   };
 
   const handleToggleEdit = () => {
@@ -95,7 +95,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="password"
           name="password"
-          value={formData.password || ''} 
+          value={formData.password || ''}
           onChange={handleChange}
         />
       </div>
@@ -105,7 +105,7 @@ const EditableProfileForm: React.FC<EditableProfileFormProps> = ({
           type="password"
           id="newPassword"
           name="newPassword"
-          value={formData.newPassword || ''} 
+          value={formData.newPassword || ''}
           onChange={handleChange}
         />
       </div>
